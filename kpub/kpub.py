@@ -284,6 +284,10 @@ class PublicationDB(object):
             except AttributeError:
                 pass  # no .pub attribute
 
+            # Ignore cospar abstracts
+            if "cosp.." in article.bibcode:
+                ignore = True
+
             if not ignore:  # Propose to the user
                 statusmsg = '(Reviewing article {} out of {}.)\n\n'.format(
                                 idx, len(articles))
@@ -297,7 +301,7 @@ def kpub(args=None):
         description="View the Kepler/K2 publication list in markdown format.")
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
-                        help="Location of the Kepler/K2 publication list db."
+                        help="Location of the Kepler/K2 publication list db. "
                              "Defaults to kpub.db in the package dir.")
     parser.add_argument('-e', '--exoplanets', action='store_true',
                         help='Only show exoplanet publications.')
@@ -340,7 +344,7 @@ def kpub_update(args=None):
         description="Interactively query ADS for new publications.")
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
-                        help="Location of the Kepler/K2 publication list db."
+                        help="Location of the Kepler/K2 publication list db. "
                              "Defaults to kpub.db in the package dir.")
     parser.add_argument('month', nargs='?', default=None,
                         help='Month to query, e.g. 2015-06.')
@@ -355,7 +359,7 @@ def kpub_add(args=None):
         description="Add a paper to the Kepler/K2 publication list.")
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
-                        help="Location of the Kepler/K2 publication list db."
+                        help="Location of the Kepler/K2 publication list db. "
                              "Defaults to kpub.db in the package dir.")
     parser.add_argument('bibcode', nargs='+',
                         help='ADS bibcode that identifies the publication.')
@@ -372,7 +376,7 @@ def kpub_delete(args=None):
         description="Deletes a paper from the Kepler/K2 publication list.")
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
-                        help="Location of the Kepler/K2 publication list db."
+                        help="Location of the Kepler/K2 publication list db. "
                              "Defaults to kpub.db in the package dir.")
     parser.add_argument('bibcode', nargs='+',
                         help='ADS bibcode that identifies the publication.')
