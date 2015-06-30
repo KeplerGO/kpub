@@ -13,8 +13,9 @@ except (IOError, ImportError):
 # Command-line tools
 entry_points = {'console_scripts': [
     'kpub = kpub:kpub',
-    'kpub-add = kpub:kpub_add',
     'kpub-update = kpub:kpub_update',
+    'kpub-add = kpub:kpub_add',
+    'kpub-delete = kpub:kpub_delete',
     'kpub-import = kpub:kpub_import',
     'kpub-export = kpub:kpub_export',
 ]}
