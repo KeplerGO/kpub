@@ -21,7 +21,7 @@ from astropy.utils.console import ProgressBar
 from . import PACKAGEDIR
 
 # Where is the default location of the SQLite database?
-DEFAULT_DB = os.path.expanduser("~/.kpub.db")
+DEFAULT_DB = os.path.join(PACKAGEDIR, "data", "kpub.db")
 
 
 class highlight:
@@ -298,7 +298,7 @@ def kpub(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db."
-                             "Defaults to '~/.kpub.db'.")
+                             "Defaults to kpub.db in the package dir.")
     parser.add_argument('-e', '--exoplanets', action='store_true',
                         help='Only show exoplanet publications.')
     parser.add_argument('-a', '--astrophysics', action='store_true',
@@ -341,7 +341,7 @@ def kpub_update(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db."
-                             "Defaults to '~/.kpub.db'.")
+                             "Defaults to kpub.db in the package dir.")
     parser.add_argument('month', nargs='?', default=None,
                         help='Month to query, e.g. 2015-06.')
     args = parser.parse_args(args)
@@ -356,7 +356,7 @@ def kpub_add(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db."
-                             "Defaults to '~/.kpub.db'.")
+                             "Defaults to kpub.db in the package dir.")
     parser.add_argument('bibcode', nargs='+',
                         help='ADS bibcode that identifies the publication.')
     args = parser.parse_args(args)
@@ -373,7 +373,7 @@ def kpub_delete(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db."
-                             "Defaults to '~/.kpub.db'.")
+                             "Defaults to kpub.db in the package dir.")
     parser.add_argument('bibcode', nargs='+',
                         help='ADS bibcode that identifies the publication.')
     args = parser.parse_args(args)
@@ -398,7 +398,7 @@ def kpub_import(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to '~/.kpub.db'.")
+                             "Defaults to kpub.db in the package dir.")
     parser.add_argument('csvfile',
                         help="Filename of the csv file to ingest.")
     args = parser.parse_args(args)
@@ -416,7 +416,7 @@ def kpub_export(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to '~/.kpub.db'.")
+                             "Defaults to kpub.db in the package dir.")
     args = parser.parse_args(args)
 
     db = PublicationDB(args.f)
