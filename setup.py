@@ -32,7 +32,8 @@ setup(name='kpub',
       packages=['kpub'],
       install_requires=["jinja2",
                         "six",
-                        "astropy"],
+                        "astropy", "ads"],
+      dependency_links=["git+https://github.com/barentsen/ads.git@ads-python3-20150630#egg=ads-1.0"],
       entry_points=entry_points,
       classifiers=[
           "Development Status :: 5 - Production/Stable",
@@ -44,4 +45,3 @@ setup(name='kpub',
           ],
       )
 
-#      dependency_links=["https://github.com/barentsen/ads/archive/e4b98388ea68887f642e53b4574f179cbd715703.tar.gz"],    

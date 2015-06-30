@@ -79,12 +79,13 @@ class PublicationDB(object):
         article._raw['mission'] = mission
         article._raw['science'] = science
         try:
-            self.con.execute("INSERT INTO pubs "
-                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                             [article.id, article.bibcode,
-                              article.year, month, article.pubdate,
-                              mission, science,
-                              json.dumps(article._raw)])
+            cur = self.con.execute("INSERT INTO pubs "
+                                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                   [article.id, article.bibcode,
+                                    article.year, month, article.pubdate,
+                                    mission, science,
+                                    json.dumps(article._raw)])
+            log.info('Inserted {} row(s).'.format(cur.rowcount))
             self.con.commit()
         except sql.IntegrityError:
             log.warning('{} was already ingested.'.format(article.bibcode))
@@ -98,7 +99,10 @@ class PublicationDB(object):
         """
         # First, highlight keywords in the title and abstract
         colors = {'KEPLER': highlight.BLUE,
+                  'KIC': highlight.BLUE,
+                  'KOI': highlight.BLUE,
                   'K2': highlight.RED,
+                  'EPIC': highlight.RED,
                   'PLANET': highlight.YELLOW}
         title = article.title[0]
         try:
@@ -165,7 +169,8 @@ class PublicationDB(object):
                     self.add(article, **kwargs)
 
     def delete_by_bibcode(self, bibcode):
-        self.con.execute("DELETE FROM pubs WHERE bibcode = ?;", [bibcode])
+        cur = self.con.execute("DELETE FROM pubs WHERE bibcode = ?;", [bibcode])
+        log.info('Deleted {} row(s).'.format(cur.rowcount))
         self.con.commit()
 
     def __contains__(self, article):
@@ -236,8 +241,11 @@ class PublicationDB(object):
         if month is None:
             month = datetime.datetime.now().strftime("%Y-%m")
 
-        log.info("Querying NASA ADS for {}.".format(month))
-        qry = ads.query('abs:"Kepler" OR abs:"K2" OR title:"Kepler" OR title:"K2"',
+        log.info("Querying ADS for month={}.".format(month))
+        qry = ads.query("""abs:"Kepler" OR abs:"K2"
+                           OR abs:"KIC" OR abs:"EPIC" OR abs:"KOI"
+                           OR title:"Kepler" OR title:"K2"
+                        """,
                         dates=month,
                         rows='all',
                         database='astronomy')  # ,property='refereed')
@@ -251,7 +259,13 @@ class PublicationDB(object):
             ignore = False
 
             # Ignore articles not containing kepler or k2 in the abstract
-            if 'kepler' not in abstract_lower and 'k2' not in abstract_lower:
+            if (
+                    'kepler' not in abstract_lower and
+                    'k2' not in abstract_lower and
+                    'koi' not in abstract_lower and
+                    'kic' not in abstract_lower and
+                    'epic' not in abstract_lower
+                    ):
                 ignore = True
 
             # Ignore articles containing any of the excluded terms
@@ -262,6 +276,13 @@ class PublicationDB(object):
             # Ignore articles already in the database
             if article in self:
                 ignore = True
+
+            # Ignore all the unrefereed non-arxiv stuff
+            try:
+                if "NOT REFEREED" in article.property and article.pub != "ArXiv e-prints":
+                    ignore = True
+            except AttributeError:
+                pass  # no .pub attribute
 
             if not ignore:  # Propose to the user
                 statusmsg = '(Reviewing article {} out of {}.)\n\n'.format(
