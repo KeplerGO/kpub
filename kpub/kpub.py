@@ -21,7 +21,7 @@ from astropy.utils.console import ProgressBar
 from . import PACKAGEDIR
 
 # Where is the default location of the SQLite database?
-DEFAULT_DB = os.path.join(PACKAGEDIR, "data", "kpub.db")
+DEFAULT_DB = os.path.expanduser("~/.kpub.db")
 
 
 class highlight:
@@ -97,6 +97,11 @@ class PublicationDB(object):
         ----------
         article : `ads.Article` object
         """
+        # Do not show an article that is already in the database
+        if article in self:
+            log.warning('{} is already in the database -- skipping.'.format(article.bibcode))
+            return
+
         # First, highlight keywords in the title and abstract
         colors = {'KEPLER': highlight.BLUE,
                   'KIC': highlight.BLUE,
@@ -201,7 +206,7 @@ class PublicationDB(object):
                                "ORDER BY date DESC; ".format(where))
         return cur.fetchall()
 
-    def to_markdown(self, group_by_month=False, **kwargs):
+    def to_markdown(self, title="Publications", group_by_month=False, **kwargs):
         """Returns the publication list in markdown format.
         """
         if group_by_month:
@@ -213,6 +218,8 @@ class PublicationDB(object):
         articles = collections.OrderedDict({})
         for row in self.query(**kwargs):
             group = row[group_idx]
+            if group.endswith("-00"):
+                group = group[:-3] + "-01"
             if group not in articles:
                 articles[group] = []
             articles[group].append(json.loads(row[2]))
@@ -220,13 +227,16 @@ class PublicationDB(object):
         templatedir = os.path.join(PACKAGEDIR, 'templates')
         env = jinja2.Environment(loader=jinja2.FileSystemLoader(templatedir))
         template = env.get_template('template.md')
-        markdown = template.render(articles=articles)
+        markdown = template.render(title=title, articles=articles)
         if sys.version_info >= (3, 0):
             return markdown  # Python 3
         else:
             return markdown.encode("utf-8")  # Python 2
 
-    def update(self, month=None, exclude=['keplerian', 'johannes']):
+    def update(self, month=None,
+               exclude=['keplerian', 'johannes', 'k<sub>2</sub>', "kepler equation",
+                        "kepler's equation", "xmm-newton", "kepler's law", "kepler's third law",
+                        "kepler problem", "kepler crater", "kepler's supernova", "kepler's snr"]):
         """Query ADS for new publications.
 
         Parameters
@@ -241,7 +251,26 @@ class PublicationDB(object):
         if month is None:
             month = datetime.datetime.now().strftime("%Y-%m")
 
-        log.info("Querying ADS for month={}.".format(month))
+        # First show all the papers with the Kepler funding message in the ack
+        log.info("Querying ADS for acknowledgements (month={}).".format(month))
+        qry = ads.query("""ack:"Kepler mission"
+                           OR ack:"K2 mission"
+                           OR ack:"Kepler team"
+                           OR ack:"K2 team"
+                           -ack:"partial support from"
+                        """,
+                        dates=month,
+                        rows='all',
+                        database='astronomy')
+        articles = list(qry)
+        for idx, article in enumerate(articles):
+            statusmsg = ("Showing article {} out of {} that mentions Kepler "
+                         "in the acknowledgements.\n\n".format(
+                            idx+1, len(articles)))
+            self.add_interactively(article, statusmsg=statusmsg)
+
+        # Then search for keywords in the title and abstracts
+        log.info("Querying ADS for titles and abstracts (month={}).".format(month))
         qry = ads.query("""abs:"Kepler" OR abs:"K2"
                            OR abs:"KIC" OR abs:"EPIC" OR abs:"KOI"
                            OR title:"Kepler" OR title:"K2"
@@ -250,6 +279,7 @@ class PublicationDB(object):
                         rows='all',
                         database='astronomy')  # ,property='refereed')
         articles = list(qry)
+
         for idx, article in enumerate(articles):
             # Ignore articles without abstract
             if not hasattr(article, 'abstract'):
@@ -257,16 +287,6 @@ class PublicationDB(object):
             abstract_lower = article.abstract.lower()
 
             ignore = False
-
-            # Ignore articles not containing kepler or k2 in the abstract
-            if (
-                    'kepler' not in abstract_lower and
-                    'k2' not in abstract_lower and
-                    'koi' not in abstract_lower and
-                    'kic' not in abstract_lower and
-                    'epic' not in abstract_lower
-                    ):
-                ignore = True
 
             # Ignore articles containing any of the excluded terms
             for term in exclude:
@@ -284,13 +304,13 @@ class PublicationDB(object):
             except AttributeError:
                 pass  # no .pub attribute
 
-            # Ignore cospar abstracts
-            if "cosp.." in article.bibcode:
+            # Ignore proposals and cospar abstracts
+            if ".prop." in article.bibcode or "cosp.." in article.bibcode:
                 ignore = True
 
             if not ignore:  # Propose to the user
                 statusmsg = '(Reviewing article {} out of {}.)\n\n'.format(
-                                idx, len(articles))
+                                idx+1, len(articles))
                 self.add_interactively(article, statusmsg=statusmsg)
         log.info('Finished reviewing all articles for {}.'.format(month))
 
@@ -302,7 +322,7 @@ def kpub(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to kpub.db in the package dir.")
+                             "Defaults to ~/.kpub.db.")
     parser.add_argument('-e', '--exoplanets', action='store_true',
                         help='Only show exoplanet publications.')
     parser.add_argument('-a', '--astrophysics', action='store_true',
@@ -313,29 +333,59 @@ def kpub(args=None):
                         help='Only show K2 publications.')
     parser.add_argument('-m', '--month', action='store_true',
                         help='Group the papers by month rather than year.')
+    parser.add_argument('-s', '--save', action='store_true',
+                        help='Save the output as markdown files in the current directory.')
     args = parser.parse_args(args)
 
-    if args.exoplanets and not args.astrophysics:
-        science = "exoplanets"
-    elif args.astrophysics and not args.exoplanets:
-        science = "astrophysics"
-    else:
-        science = None
-
-    if args.kepler and not args.k2:
-        mission = "kepler"
-    elif args.k2 and not args.kepler:
-        mission = "k2"
-    else:
-        mission = None
-
     db = PublicationDB(args.f)
-    output = db.to_markdown(group_by_month=args.month,
-                            mission=mission,
-                            science=science)
-    from signal import signal, SIGPIPE, SIG_DFL
-    signal(SIGPIPE, SIG_DFL)
-    print(output)
+
+    if args.save:
+        output = db.to_markdown(group_by_month=args.month,
+                                title="Kepler/K2 publications")
+        filename = 'kpub.md'
+        log.info('Writing {}'.format(filename))
+        f = open(filename, 'w')
+        f.write(output)
+        f.close()
+        for science in ['exoplanets', 'astrophysics']:
+            output = db.to_markdown(group_by_month=args.month,
+                                    science=science,
+                                    title="Kepler/K2 {} publications".format(science.capitalize()))
+            filename = 'kpub-{}.md'.format(science)
+            log.info('Writing {}'.format(filename))
+            f = open(filename, 'w')
+            f.write(output)
+            f.close()
+        for mission in ['kepler', 'k2']:
+            output = db.to_markdown(group_by_month=args.month,
+                                    mission=mission,
+                                    title="{} publications".format(mission.capitalize()))
+            filename = 'kpub-{}.md'.format(mission)
+            log.info('Writing {}'.format(filename))
+            f = open(filename, 'w')
+            f.write(output)
+            f.close()
+    else:
+        if args.exoplanets and not args.astrophysics:
+            science = "exoplanets"
+        elif args.astrophysics and not args.exoplanets:
+            science = "astrophysics"
+        else:
+            science = None
+
+        if args.kepler and not args.k2:
+            mission = "kepler"
+        elif args.k2 and not args.kepler:
+            mission = "k2"
+        else:
+            mission = None
+        
+        output = db.to_markdown(group_by_month=args.month,
+                                mission=mission,
+                                science=science)
+        from signal import signal, SIGPIPE, SIG_DFL
+        signal(SIGPIPE, SIG_DFL)
+        print(output)
 
 
 def kpub_update(args=None):
@@ -345,7 +395,7 @@ def kpub_update(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to kpub.db in the package dir.")
+                             "Defaults to ~/.kpub.db.")
     parser.add_argument('month', nargs='?', default=None,
                         help='Month to query, e.g. 2015-06.')
     args = parser.parse_args(args)
@@ -360,7 +410,7 @@ def kpub_add(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to kpub.db in the package dir.")
+                             "Defaults to ~/.kpub.db.")
     parser.add_argument('bibcode', nargs='+',
                         help='ADS bibcode that identifies the publication.')
     args = parser.parse_args(args)
@@ -377,7 +427,7 @@ def kpub_delete(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to kpub.db in the package dir.")
+                             "Defaults to ~/.kpub.db.")
     parser.add_argument('bibcode', nargs='+',
                         help='ADS bibcode that identifies the publication.')
     args = parser.parse_args(args)
@@ -402,7 +452,7 @@ def kpub_import(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to kpub.db in the package dir.")
+                             "Defaults to ~/.kpub.db.")
     parser.add_argument('csvfile',
                         help="Filename of the csv file to ingest.")
     args = parser.parse_args(args)
@@ -420,7 +470,7 @@ def kpub_export(args=None):
     parser.add_argument('-f', metavar='dbfile',
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
-                             "Defaults to kpub.db in the package dir.")
+                             "Defaults to ~/.kpub.db.")
     args = parser.parse_args(args)
 
     db = PublicationDB(args.f)

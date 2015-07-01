@@ -1,11 +1,11 @@
-Publications
-============
+{{ title }}
+{{ "=" * title|length }}
 {% for month in articles %}
 
 {{ month }}
 {{ "-" * month|length }}
 {% for art in articles[month] %}
-{{loop.index}}. {{art['title'][0].upper()}}
+{{loop.index}}. {{art['title'][0].upper()}}  
 {{ ', '.join(art['author'][0:3]) }}{% if art['author']|length > 3 %}, et al.{% endif %}    
 {{ art["year"] }}, {% if art["pub"] == "ArXiv e-prints" -%}
     pre-print
