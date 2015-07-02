@@ -3,6 +3,32 @@ kpub: Kepler publication database
 
 `kpub` is a mission-specific tool that enables NASA's Kepler/K2 Guest Observer Office to keep track of scientific publications in an easy way. It leverages the [ADS API](https://github.com/andycasey/ads) and SQLite to curate a database that contains the metadata of scientific publications related to the Kepler/K2 spacecraft missions.
 
+## Example use
+
+Generate a list of exoplanet-related publications in markdown format:
+```
+kpub --exoplanets > exoplanet-publications.md
+```
+
+Add a new article to the database using its bibcode:
+```
+kpub-add 2015arXiv150204715F
+```
+
+Remove an article from the list using its bibcode:
+```
+kpub-delete 2015ApJ...800...46B
+```
+
+Search ADS for new Kepler-related articles published in July 2015,
+and interactively classify them:
+```
+kpub-update 2015-07
+```
+
+For example output, see the files in the `data/output/` directory
+of this repository.
+
 ## Installation
 
 To install the latest version from source:
@@ -10,6 +36,14 @@ To install the latest version from source:
 git clone https://github.com/barentsen/kpub.git
 cd kpub
 python setup.py install
+```
+
+Note that `kpub` will use `~/.kpub.db` as the default database file.
+This repository contains a recent version
+of the database file (`data/kpub.db`);
+you may want to link this to the default file as follows:
+```
+ln -s /path/to/git/repo/data/kpub.db ~/.kpub.db
 ```
 
 ## Using kpub
