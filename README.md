@@ -10,7 +10,7 @@ of mission-related articles.
 
 ## Example use
 
-Print a list of Kepler-related exoplanet publications in markdown format:
+Print a nicely-formatted list of Kepler-related exoplanet publications in markdown format:
 ```
 kpub --exoplanets
 ```
