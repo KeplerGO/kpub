@@ -55,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Geert's additions
+sandbox/

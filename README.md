@@ -60,7 +60,7 @@ After installation, this package adds the following command-line tools to your p
 
 Listed below are the usage instructions for each command:
 
-### kpub
+*kpub*
 ```
 $ kpub --help
 usage: kpub [-h] [-f dbfile] [-e] [-a] [-k] [-2] [-m]
@@ -69,8 +69,8 @@ View the Kepler/K2 publication list in markdown format.
 
 optional arguments:
   -h, --help          show this help message and exit
-  -f dbfile           Location of the Kepler/K2 publication list db.Defaults
-                      to kpub.db in the package dir.
+  -f dbfile           Location of the Kepler/K2 publication list db. Defaults 
+                      to ~/.kpub.db.
   -e, --exoplanets    Only show exoplanet publications.
   -a, --astrophysics  Only show astrophysics publications.
   -k, --kepler        Only show Kepler publications.
@@ -78,7 +78,7 @@ optional arguments:
   -m, --month         Group the papers by month rather than year.
 ```
 
-### kpub-update
+*kpub-update*
 ```
 $ kpub-update --help
 usage: kpub-update [-h] [-f dbfile] [month]
@@ -90,11 +90,11 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
-  -f dbfile   Location of the Kepler/K2 publication list db.Defaults to
-              kpub.db in the package dir.
+  -f dbfile   Location of the Kepler/K2 publication list db. Defaults to
+              ~/.kpub.db.
 ```
 
-### kpub-add
+*kpub-add*
 ```
 $ kpub-add --help
 usage: kpub-add [-h] [-f dbfile] bibcode [bibcode ...]
@@ -106,11 +106,11 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
-  -f dbfile   Location of the Kepler/K2 publication list db.Defaults to
-              kpub.db in the package dir.
+  -f dbfile   Location of the Kepler/K2 publication list db. Defaults to
+              ~/.kpub.db.
 ```
 
-### kpub-delete
+*kpub-delete*
 ```
 $ kpub-delete --help
 usage: kpub-delete [-h] [-f dbfile] bibcode [bibcode ...]
@@ -122,11 +122,11 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
-  -f dbfile   Location of the Kepler/K2 publication list db.Defaults to
-              kpub.db in the package dir.
+  -f dbfile   Location of the Kepler/K2 publication list db. Defaults to
+              ~/.kpub.db.
 ```
 
-### kpub-import
+*kpub-import*
 ```
 $ kpub-import --help 
 usage: kpub-import [-h] [-f dbfile] csvfile
@@ -141,10 +141,10 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   -f dbfile   Location of the Kepler/K2 publication list db. Defaults to
-              kpub.db in the package dir.
+              ~/.kpub.db.
 ```
 
-### kpub-export
+*kpub-export*
 ```
 $ kpub-export --help
 usage: kpub-export [-h] [-f dbfile]
@@ -154,5 +154,12 @@ Export the Kepler/K2 publication list in CSV format.
 optional arguments:
   -h, --help  show this help message and exit
   -f dbfile   Location of the Kepler/K2 publication list db. Defaults to
-              kpub.db in the package dir.
+              ~/.kpub.db.
 ```
+
+
+## Acknowledgements
+
+This tool is made possible thanks to the efforts made by NASA ADS to
+provide a web API, and thanks to the excellent Python client that Andy Casey
+(@andycasey) wrote to use the API. Thanks ADS, thanks Andy!
