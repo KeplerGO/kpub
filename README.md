@@ -4,9 +4,9 @@ kpub: Kepler publication database
 `kpub` is a mission-specific tool that enables NASA's Kepler/K2 Guest Observer 
 Office to keep track of its mission's scientific publications in an easy way. 
 It leverages SQLite and the [ADS API](https://github.com/adsabs/adsabs-dev-api)
-(using [Andy Casey's awesome Python client](https://github.com/andycasey/ads)) 
+(using Andy Casey's [awesome Python client](https://github.com/andycasey/ads)) 
 to create and curate a database that contains the metadata 
-of relevant articles.
+of mission-related articles.
 
 ## Example use
 
