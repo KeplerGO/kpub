@@ -16,8 +16,8 @@ kpub --exoplanets
 ```
 
 Add a new article to the database using its bibcode.
-(This command will display the article's metadata and ask the user to
-classify the science.)
+This command will display the article's metadata and ask the user to
+classify the science:
 ```
 kpub-add 2015arXiv150204715F
 ```
