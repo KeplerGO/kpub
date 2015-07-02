@@ -5,9 +5,9 @@ kpub: Kepler publication database
 
 ## Example use
 
-Generate a list of exoplanet-related publications in markdown format:
+Print a list of Kepler-related exoplanet publications in markdown format:
 ```
-kpub --exoplanets > exoplanet-publications.md
+kpub --exoplanets
 ```
 
 Add a new article to the database using its bibcode:
@@ -15,19 +15,17 @@ Add a new article to the database using its bibcode:
 kpub-add 2015arXiv150204715F
 ```
 
-Remove an article from the list using its bibcode:
+Remove an article using its bibcode:
 ```
 kpub-delete 2015ApJ...800...46B
 ```
 
-Search ADS for new Kepler-related articles published in July 2015,
-and interactively classify them:
+Search ADS interactively for new Kepler-related articles and try to add them:
 ```
 kpub-update 2015-07
 ```
 
-For example output, see the files in the `data/output/` directory
-of this repository.
+For example output, see the `data/output/` sub-directory in this repository.
 
 ## Installation
 
@@ -38,15 +36,19 @@ cd kpub
 python setup.py install
 ```
 
-Note that `kpub` will use `~/.kpub.db` as the default database file.
+Note that the `kpub` tools will use `~/.kpub.db` as the default database file.
 This repository contains a recent version
-of the database file (`data/kpub.db`);
-you may want to link this to the default file as follows:
+of the database file (`data/kpub.db`),
+which you may want to link to the default file as follows:
 ```
 ln -s /path/to/git/repo/data/kpub.db ~/.kpub.db
 ```
 
-## Using kpub
+The `kpub-add`and `kpub-update` tools that come with this package require
+an api key from NASA ADS labs to retrieve publication meta-data.
+You need to follow the installation instructions of the [ads client](https://github.com/andycasey/ads) by @andycasey to make this work.
+
+## Command-line tools
 
 After installation, this package adds the following command-line tools to your path:
 * `kpub` prints the list of publications in markdown format;
