@@ -63,7 +63,8 @@ After installation, this package adds the following command-line tools to your p
 * `kpub-add` adds a publication using its ADS bibcode;
 * `kpub-delete` deletes a publication using its ADS bibcode;
 * `kpub-import` imports bibcodes from a csv file;
-* `kpub-export` exports bibcodes to a csv file.
+* `kpub-export` exports bibcodes to a csv file;
+* `kpub-plot` creates a visualization of the database.
 
 Listed below are the usage instructions for each command:
 
