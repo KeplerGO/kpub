@@ -11,8 +11,12 @@ import datetime
 import argparse
 import sqlite3 as sql
 
+try:
+    import ads
+except Exception:
+    ads = None
+
 # External dependencies
-import ads
 import jinja2
 from six.moves import input  # needed to support Python 2
 from astropy import log
@@ -160,6 +164,10 @@ class PublicationDB(object):
         self.add(article, mission=mission, science=science)
 
     def add_by_bibcode(self, bibcode, interactive=False, **kwargs):
+        if ads is None:
+            log.error("This action requires the ADS key to be setup.")
+            return
+        
         q = ads.query(bibcode)
         for article in q:
             # Data products are sometimes returned as NONARTICLE entries
@@ -248,6 +256,10 @@ class PublicationDB(object):
             Ignore articles if they contain any of the strings given
             in this list. (Case-insensitive.)
         """
+        if ads is None:
+            log.error("This action requires the ADS key to be setup.")
+            return
+
         if month is None:
             month = datetime.datetime.now().strftime("%Y-%m")
 
