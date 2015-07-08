@@ -24,7 +24,7 @@ from . import PACKAGEDIR
 DEFAULT_DB = os.path.expanduser("~/.kpub.db")
 
 
-class highlight:
+class Highlight:
     """Defines colors for highlighting words in the terminal."""
     RED = "\033[4;31m"
     GREEN = "\033[4;32m"
@@ -103,12 +103,12 @@ class PublicationDB(object):
             return
 
         # First, highlight keywords in the title and abstract
-        colors = {'KEPLER': highlight.BLUE,
-                  'KIC': highlight.BLUE,
-                  'KOI': highlight.BLUE,
-                  'K2': highlight.RED,
-                  'EPIC': highlight.RED,
-                  'PLANET': highlight.YELLOW}
+        colors = {'KEPLER': Highlight.BLUE,
+                  'KIC': Highlight.BLUE,
+                  'KOI': Highlight.BLUE,
+                  'K2': Highlight.RED,
+                  'EPIC': Highlight.RED,
+                  'PLANET': Highlight.YELLOW}
         title = article.title[0]
         try:
             abstract = article.abstract
@@ -117,8 +117,8 @@ class PublicationDB(object):
 
         for word in colors:
             pattern = re.compile(word, re.IGNORECASE)
-            title = pattern.sub(colors[word] + word + highlight.END, title)
-            abstract = pattern.sub(colors[word]+word+highlight.END, abstract)
+            title = pattern.sub(colors[word] + word + Highlight.END, title)
+            abstract = pattern.sub(colors[word]+word+Highlight.END, abstract)
 
         # Print paper information to stdout
         print(chr(27) + "[2J")  # Clear screen

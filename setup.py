@@ -18,6 +18,7 @@ entry_points = {'console_scripts': [
     'kpub-delete = kpub:kpub_delete',
     'kpub-import = kpub:kpub_import',
     'kpub-export = kpub:kpub_export',
+    'kpub-plot = kpub.plot:kpub_plot'
 ]}
 
 setup(name='kpub',
