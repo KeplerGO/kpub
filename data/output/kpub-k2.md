@@ -133,11 +133,7 @@ Brahm, R., Jordán, A., Hartman, J. D., et al.
 Vanderburg, Andrew, Montet, Benjamin T., Johnson, John Asher, et al.    
 2015, refereed ([2015ApJ...800...59V](http://adsabs.harvard.edu/abs/2015ApJ...800...59V))  
 
-33. A SYSTEMATIC SEARCH FOR TRANSITING PLANETS IN THE K2 DATA  
-Foreman-Mackey, Daniel, Montet, Benjamin T., Hogg, David W., et al.    
-2015, pre-print ([2015arXiv150204715F](http://adsabs.harvard.edu/abs/2015arXiv150204715F))  
-
-34. THE ASTEROSEISMOLOGY OF ZZ CETI STAR GD1212  
+33. THE ASTEROSEISMOLOGY OF ZZ CETI STAR GD1212  
 Guifang, Lin, Yan, Li, Jie, Su    
 2015, pre-print ([2015arXiv150105360G](http://adsabs.harvard.edu/abs/2015arXiv150105360G))  
 
