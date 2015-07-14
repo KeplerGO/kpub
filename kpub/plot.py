@@ -55,7 +55,7 @@ def kpub_plot(args=None):
 
 
 def plot_by_year(dbfile="/home/gb/dev/kpub/data/kpub.db",
-                 output_fn='kpub-publication-rate.png',
+                 output_fn='kpub-publication-rate.pdf',
                  first_year=2009,
                  barwidth=0.75):
     con = sql.connect(dbfile)
@@ -129,7 +129,7 @@ def plot_by_year(dbfile="/home/gb/dev/kpub/data/kpub.db",
 
 
 def plot_science_piechart(dbfile="/home/gb/dev/kpub/data/kpub.db",
-                          output_fn="kpub-piechart.png"):
+                          output_fn="kpub-piechart.pdf"):
     con = sql.connect(dbfile)
 
     count = []
