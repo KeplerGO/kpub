@@ -95,7 +95,7 @@ def plot_by_year(dbfile="/home/gb/dev/kpub/data/kpub.db",
     extrapolated = (counts['kepler'][current_year] +
                     counts['k2'][current_year])
     plt.bar(current_year - 0.5*barwidth,
-            extrapolated,
+            (12/7. - 1.) * extrapolated,
             bottom=extrapolated,
             label='Extrapolation',
             facecolor='gray',
