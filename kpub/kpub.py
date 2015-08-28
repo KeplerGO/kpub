@@ -134,7 +134,7 @@ class PublicationDB(object):
         print('Authors: ' + ', '.join(article.author))
         print('Date: ' + article.pubdate)
         print('Status: ' + str(article.property))
-        print('URL: ' + article.url)
+        print('URL: http://adsabs.harvard.edu/abs/' + article.bibcode)
         print('')
 
         # Prompt the user to classify the paper by mission and science
@@ -168,7 +168,7 @@ class PublicationDB(object):
             log.error("This action requires the ADS key to be setup.")
             return
         
-        q = ads.query(bibcode)
+        q = ads.SearchQuery(q=bibcode)
         for article in q:
             # Data products are sometimes returned as NONARTICLE entries
             if article in self:
@@ -265,15 +265,16 @@ class PublicationDB(object):
 
         # First show all the papers with the Kepler funding message in the ack
         log.info("Querying ADS for acknowledgements (month={}).".format(month))
-        qry = ads.query("""ack:"Kepler mission"
-                           OR ack:"K2 mission"
-                           OR ack:"Kepler team"
-                           OR ack:"K2 team"
-                           -ack:"partial support from"
-                        """,
-                        dates=month,
-                        rows='all',
-                        database='astronomy')
+        database = "astronomy"
+        qry = ads.SearchQuery(q="""(ack:"Kepler mission"
+                                    OR ack:"K2 mission"
+                                    OR ack:"Kepler team"
+                                    OR ack:"K2 team")
+                                   -ack:"partial support from"
+                                   pubdate:"{}"
+                                   database:"{}"
+                                """.format(month, database),
+                              rows=9999999999)
         articles = list(qry)
         for idx, article in enumerate(articles):
             statusmsg = ("Showing article {} out of {} that mentions Kepler "
@@ -283,13 +284,17 @@ class PublicationDB(object):
 
         # Then search for keywords in the title and abstracts
         log.info("Querying ADS for titles and abstracts (month={}).".format(month))
-        qry = ads.query("""abs:"Kepler" OR abs:"K2"
-                           OR abs:"KIC" OR abs:"EPIC" OR abs:"KOI"
-                           OR title:"Kepler" OR title:"K2"
-                        """,
-                        dates=month,
-                        rows='all',
-                        database='astronomy')  # ,property='refereed')
+        qry = ads.SearchQuery(q="""(abs:"Kepler"
+                                    OR abs:"K2"
+                                    OR abs:"KIC"
+                                    OR abs:"EPIC"
+                                    OR abs:"KOI"
+                                    OR title:"Kepler"
+                                    OR title:"K2")
+                                   pubdate:"{}"
+                                   database:"{}"
+                                """.format(month, database),
+                              rows=9999999999)
         articles = list(qry)
 
         for idx, article in enumerate(articles):
@@ -346,7 +351,7 @@ def kpub(args=None):
     parser.add_argument('-m', '--month', action='store_true',
                         help='Group the papers by month rather than year.')
     parser.add_argument('-s', '--save', action='store_true',
-                        help='Save the output as markdown files in the current directory.')
+                        help='Save the output and plots in the current directory.')
     args = parser.parse_args(args)
 
     db = PublicationDB(args.f)
@@ -355,10 +360,12 @@ def kpub(args=None):
         for bymonth in [True, False]:
             if bymonth:
                 suffix = "-by-month"
+                title_suffix = " by month"
             else:
                 suffix = ""
+                title_suffix = ""
             output = db.to_markdown(group_by_month=bymonth,
-                                    title="Kepler/K2 publications")
+                                    title="Kepler/K2 publications{}".format(title_suffix))
             filename = 'kpub{}.md'.format(suffix)
             log.info('Writing {}'.format(filename))
             f = open(filename, 'w')
@@ -367,7 +374,7 @@ def kpub(args=None):
             for science in ['exoplanets', 'astrophysics']:
                 output = db.to_markdown(group_by_month=bymonth,
                                         science=science,
-                                        title="Kepler/K2 {} publications".format(science.capitalize()))
+                                        title="Kepler/K2 {} publications{}".format(science.capitalize(), title_suffix))
                 filename = 'kpub-{}{}.md'.format(science, suffix)
                 log.info('Writing {}'.format(filename))
                 f = open(filename, 'w')
@@ -376,7 +383,7 @@ def kpub(args=None):
             for mission in ['kepler', 'k2']:
                 output = db.to_markdown(group_by_month=bymonth,
                                         mission=mission,
-                                        title="{} publications".format(mission.capitalize()))
+                                        title="{} publications{}".format(mission.capitalize(), title_suffix))
                 filename = 'kpub-{}{}.md'.format(mission, suffix)
                 log.info('Writing {}'.format(filename))
                 f = open(filename, 'w')

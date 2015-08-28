@@ -36,7 +36,6 @@ setup(name='kpub',
                         "six",
                         "astropy",
                         "ads"],
-      dependency_links=["git+https://github.com/barentsen/ads.git@ads-python3-20150630#egg=ads-1.0"],
       entry_points=entry_points,
       classifiers=[
           "Development Status :: 5 - Production/Stable",
