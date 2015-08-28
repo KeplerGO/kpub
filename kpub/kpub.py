@@ -241,6 +241,13 @@ class PublicationDB(object):
         else:
             return markdown.encode("utf-8")  # Python 2
 
+    def plot(self):
+        """Saves beautiful plot of the database."""
+        for extension in ['pdf', 'png']:
+            plot.plot_by_year(self, "kpub-publication-rate.{}".format(extension))
+            plot.plot_science_piechart(self, "kpub-piechart.{}".format(extension))
+
+
     def update(self, month=None,
                exclude=['keplerian', 'johannes', 'k<sub>2</sub>', "kepler equation",
                         "kepler's equation", "xmm-newton", "kepler's law", "kepler's third law",
@@ -414,6 +421,19 @@ def kpub(args=None):
         from signal import signal, SIGPIPE, SIG_DFL
         signal(SIGPIPE, SIG_DFL)
         print(output)
+
+
+def kpub_plot(args=None):
+    """Creates beautiful plots of the database."""
+    parser = argparse.ArgumentParser(
+        description="Creates beautiful plots of the database.")
+    parser.add_argument('-f', metavar='dbfile',
+                        type=str, default=DEFAULT_DB,
+                        help="Location of the Kepler/K2 publication list db. "
+                             "Defaults to ~/.kpub.db.")
+    args = parser.parse_args(args)
+
+    PublicationDB(args.f).plot()
 
 
 def kpub_update(args=None):

@@ -49,12 +49,6 @@ MISSIONS = ['kepler', 'k2']
 SCIENCES = ['astrophysics', 'exoplanets']
 
 
-def kpub_plot(args=None):
-    """Creates a beautiful viz of the database."""
-    plot_by_year()
-    plot_science_piechart()
-
-
 def plot_by_year(db,
                  output_fn='kpub-publication-rate.pdf',
                  first_year=2009,
