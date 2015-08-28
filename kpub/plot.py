@@ -112,11 +112,14 @@ def plot_by_year(db,
             facecolor="#c0392b",
             width=barwidth)
     # Also plot the extrapolated precition for the current year
-    extrapolated = (counts['kepler'][current_year] +
-                    counts['k2'][current_year])
+    now = datetime.datetime.now()
+    fraction_of_year_passed = float(now.strftime("%-j")) / 365.2425
+    current_total = (counts['kepler'][current_year] +
+                     counts['k2'][current_year])
+    expected = (1/fraction_of_year_passed - 1) * current_total
     plt.bar(current_year - 0.5*barwidth,
-            (12/7. - 1.) * extrapolated,
-            bottom=extrapolated,
+            expected,
+            bottom=current_total,
             label='Extrapolation',
             facecolor='gray',
             width=barwidth)
