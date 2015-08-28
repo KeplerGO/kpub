@@ -22,7 +22,7 @@ from six.moves import input  # needed to support Python 2
 from astropy import log
 from astropy.utils.console import ProgressBar
 
-from . import PACKAGEDIR
+from . import plot, PACKAGEDIR
 
 # Where is the default location of the SQLite database?
 DEFAULT_DB = os.path.expanduser("~/.kpub.db")
@@ -352,31 +352,40 @@ def kpub(args=None):
     db = PublicationDB(args.f)
 
     if args.save:
-        output = db.to_markdown(group_by_month=args.month,
-                                title="Kepler/K2 publications")
-        filename = 'kpub.md'
-        log.info('Writing {}'.format(filename))
-        f = open(filename, 'w')
-        f.write(output)
-        f.close()
-        for science in ['exoplanets', 'astrophysics']:
-            output = db.to_markdown(group_by_month=args.month,
-                                    science=science,
-                                    title="Kepler/K2 {} publications".format(science.capitalize()))
-            filename = 'kpub-{}.md'.format(science)
+        for bymonth in [True, False]:
+            if bymonth:
+                suffix = "-by-month"
+            else:
+                suffix = ""
+            output = db.to_markdown(group_by_month=bymonth,
+                                    title="Kepler/K2 publications")
+            filename = 'kpub{}.md'.format(suffix)
             log.info('Writing {}'.format(filename))
             f = open(filename, 'w')
             f.write(output)
             f.close()
-        for mission in ['kepler', 'k2']:
-            output = db.to_markdown(group_by_month=args.month,
-                                    mission=mission,
-                                    title="{} publications".format(mission.capitalize()))
-            filename = 'kpub-{}.md'.format(mission)
-            log.info('Writing {}'.format(filename))
-            f = open(filename, 'w')
-            f.write(output)
-            f.close()
+            for science in ['exoplanets', 'astrophysics']:
+                output = db.to_markdown(group_by_month=bymonth,
+                                        science=science,
+                                        title="Kepler/K2 {} publications".format(science.capitalize()))
+                filename = 'kpub-{}{}.md'.format(science, suffix)
+                log.info('Writing {}'.format(filename))
+                f = open(filename, 'w')
+                f.write(output)
+                f.close()
+            for mission in ['kepler', 'k2']:
+                output = db.to_markdown(group_by_month=bymonth,
+                                        mission=mission,
+                                        title="{} publications".format(mission.capitalize()))
+                filename = 'kpub-{}{}.md'.format(mission, suffix)
+                log.info('Writing {}'.format(filename))
+                f = open(filename, 'w')
+                f.write(output)
+                f.close()
+        # Also make plots
+        for extension in ['pdf', 'png']:
+            plot.plot_by_year(db, "kpub-publication-rate.{}".format(extension))
+            plot.plot_science_piechart(db, "kpub-piechart.{}".format(extension))
     else:
         if args.exoplanets and not args.astrophysics:
             science = "exoplanets"

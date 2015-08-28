@@ -1,14 +1,15 @@
-"""Tools to create beautiful visualizations of the publication database."""
+"""Creates beautiful visualizations of the publication database."""
 import datetime
 import sqlite3 as sql
 
 import numpy as np
 from astropy import log
+
 from matplotlib import pyplot as plt
 import matplotlib.patheffects as path_effects
+import matplotlib as mpl
 
 # Configure the aesthetics
-import matplotlib as mpl
 mpl.rcParams["figure.figsize"] = (8.485, 6)
 mpl.rcParams["interactive"] = False
 mpl.rcParams["lines.antialiased"] = True
@@ -54,11 +55,30 @@ def kpub_plot(args=None):
     plot_science_piechart()
 
 
-def plot_by_year(dbfile="/home/gb/dev/kpub/data/kpub.db",
+def plot_by_year(db,
                  output_fn='kpub-publication-rate.pdf',
                  first_year=2009,
-                 barwidth=0.75):
-    con = sql.connect(dbfile)
+                 barwidth=0.75,
+                 dpi=100):
+    """Plots a bar chart showing the number of publications per year.
+
+    Parameters
+    ----------
+    db : `PublicationDB` object
+        Data to plot.
+
+    output_fn : str
+        Output filename of the plot.
+
+    first_year : int
+        What year should the plot start?
+
+    barwidth : float
+        Aesthetics -- how wide are the bars?
+
+    dpi : float
+        Output resolution.
+    """
     current_year = datetime.datetime.now().year
 
     # Initialize a dictionary to contain the data to plot
@@ -68,7 +88,7 @@ def plot_by_year(dbfile="/home/gb/dev/kpub/data/kpub.db",
         for year in range(first_year, current_year + 1):
             counts[mission][year] = 0
 
-        cur = con.execute("SELECT year, COUNT(*) FROM pubs "
+        cur = db.con.execute("SELECT year, COUNT(*) FROM pubs "
                           "WHERE mission = ? "
                           "AND year >= '2009' "
                           "GROUP BY year;",
@@ -124,17 +144,27 @@ def plot_by_year(dbfile="/home/gb/dev/kpub/data/kpub.db",
     ax.grid(axis='y')
     plt.tight_layout(rect=(0, 0, 1, 0.95), h_pad=1.5)
     log.info("Writing {}".format(output_fn))
-    plt.savefig(output_fn, dpi=200)
+    plt.savefig(output_fn, dpi=dpi)
     plt.close()
 
 
-def plot_science_piechart(dbfile="/home/gb/dev/kpub/data/kpub.db",
-                          output_fn="kpub-piechart.pdf"):
-    con = sql.connect(dbfile)
+def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=100):
+    """Plots a piechart showing exoplanet vs astrophysics publications.
 
+    Parameters
+    ----------
+    db : `PublicationDB` object
+        Data to plot.
+
+    output_fn : str
+        Output filename of the plot.
+
+    dpi : float
+        Output resolution.
+    """
     count = []
     for science in SCIENCES:
-        cur = con.execute("SELECT COUNT(*) FROM pubs "
+        cur = db.con.execute("SELECT COUNT(*) FROM pubs "
                           "WHERE science = ?;", [science])
         rows = list(cur.fetchall())
         count.append(rows[0][0])
@@ -164,7 +194,7 @@ def plot_science_piechart(dbfile="/home/gb/dev/kpub/data/kpub.db",
     plt.axis('equal')  # required to ensure pie chart has equal aspect ratio
     plt.tight_layout(rect=(0, 0, 1, 0.85), h_pad=1.5)
     log.info("Writing {}".format(output_fn))
-    plt.savefig(output_fn, dpi=200)
+    plt.savefig(output_fn, dpi=dpi)
     plt.close()
 
 
