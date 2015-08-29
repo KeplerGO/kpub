@@ -396,10 +396,6 @@ def kpub(args=None):
                 f = open(filename, 'w')
                 f.write(output)
                 f.close()
-        # Also make plots
-        for extension in ['pdf', 'png']:
-            plot.plot_by_year(db, "kpub-publication-rate.{}".format(extension))
-            plot.plot_science_piechart(db, "kpub-piechart.{}".format(extension))
     else:
         if args.exoplanets and not args.astrophysics:
             science = "exoplanets"
