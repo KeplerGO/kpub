@@ -97,13 +97,13 @@ def plot_by_year(db,
     plt.bar(np.array(list(counts['kepler'].keys())) - 0.5*barwidth,
             counts['kepler'].values(),
             label='Kepler',
-            facecolor="#2980b9",
+            facecolor="#3498db",
             width=barwidth)
     plt.bar(np.array(list(counts['k2'].keys())) - 0.5*barwidth,
             counts['k2'].values(),
             bottom=counts['kepler'].values(),
             label='K2',
-            facecolor="#c0392b",
+            facecolor="#e74c3c",
             width=barwidth)
     # Also plot the extrapolated precition for the current year
     now = datetime.datetime.now()
@@ -115,7 +115,7 @@ def plot_by_year(db,
             expected,
             bottom=current_total,
             label='Extrapolation',
-            facecolor='gray',
+            facecolor='#95a5a6',
             width=barwidth)
 
     # Aesthetics
@@ -168,7 +168,7 @@ def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=100):
 
     # Plot the pie chart
     patches, texts, autotexts = plt.pie(count,
-                                        colors=['#f39c12', '#16a085'],
+                                        colors=['#f39c12', '#128f76'],
                                         autopct="%.0f%%",
                                         startangle=90)
     # Now take care of the aesthetics
