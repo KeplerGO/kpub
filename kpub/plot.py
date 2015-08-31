@@ -46,7 +46,7 @@ mpl.rcParams["grid.linewidth"] = 1
 
 
 MISSIONS = ['kepler', 'k2']
-SCIENCES = ['astrophysics', 'exoplanets']
+SCIENCES = ['exoplanets', 'astrophysics']
 
 
 def plot_by_year(db,
