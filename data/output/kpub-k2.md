@@ -1,4 +1,5 @@
 Title: K2 publications
+Save_as: kpub-k2.html
 
 [TOC]
 
@@ -6,187 +7,167 @@ Title: K2 publications
 2015
 ----
 
-1. INSIGHTS INTO INTERNAL EFFECTS OF COMMON-ENVELOPE EVOLUTION USING THE EXTENDED KEPLER MISSION  
-Hermes, J. J., Gänsicke, B. T., Bischoff-Kim, A., et al.    
-2015, refereed ([2015MNRAS.451.1701H](http://adsabs.harvard.edu/abs/2015MNRAS.451.1701H))  
+1. KEPLER ECLIPSING BINARY STARS - VI. IDENTIFICATION OF ECLIPSING BINARIES IN THE K2 CAMPAIGN 0 DATA SET  
+LaCourse, Daryll M., Jek, Kian J., Jacobs, Thomas L., et al.    
+2015, refereed ([2015MNRAS.452.3561L](http://adsabs.harvard.edu/abs/2015MNRAS.452.3561L))  
 
-2. OSCILLATING RED GIANTS OBSERVED DURING CAMPAIGN 1 OF THE KEPLER K2 MISSION: NEW PROSPECTS FOR GALACTIC ARCHAEOLOGY  
-Stello, Dennis, Huber, Daniel, Sharma, Sanjib, et al.    
-2015, refereed ([2015ApJ...809L...3S](http://adsabs.harvard.edu/abs/2015ApJ...809L...3S))  
+2. K2 AND MAXI OBSERVATIONS OF SCO X-1 - EVIDENCE FOR DISC PRECESSION?  
+Hakala, Pasi, Ramsay, Gavin, Barclay, Thomas, et al.    
+2015, refereed ([2015MNRAS.453L...6H](http://adsabs.harvard.edu/abs/2015MNRAS.453L...6H))  
 
-3. PUSHING THE LIMITS, EPISODE 2: K2 OBSERVATIONS OF EXTRAGALACTIC RR LYRAE STARS IN THE DWARF GALAXY LEO IV  
-Molnár, L., Pál, A., Plachy, E., et al.    
-2015, pre-print ([2015arXiv150805587M](http://adsabs.harvard.edu/abs/2015arXiv150805587M))  
+3. KEPLER'S FIRST VIEW OF O-STAR VARIABILITY: K2 DATA OF FIVE O STARS IN CAMPAIGN 0 AS A PROOF OF CONCEPT FOR O-STAR ASTEROSEISMOLOGY  
+Buysschaert, B., Aerts, C., Bloemen, S., et al.    
+2015, refereed ([2015MNRAS.453...89B](http://adsabs.harvard.edu/abs/2015MNRAS.453...89B))  
 
-4. STELLAR AND PLANETARY PROPERTIES OF K2 CAMPAIGN 1 CANDIDATES AND VALIDATION OF 17 PLANETS, INCLUDING A PLANET RECEIVING EARTH-LIKE INSOLATION  
+4. AN RR LYRAE FAMILY PORTRAIT: 33 STARS OBSERVED IN PISCES WITH K2-E2  
+Molnár, L., Szabó, R., Moskalik, P. A., et al.    
+2015, refereed ([2015MNRAS.452.4283M](http://adsabs.harvard.edu/abs/2015MNRAS.452.4283M))  
+
+5. A SECOND CASE OF OUTBURSTS IN A PULSATING WHITE DWARF OBSERVED BY KEPLER  
+Hermes, J. J., Montgomery, M. H., Bell, Keaton J., et al.    
+2015, refereed ([2015ApJ...810L...5H](http://adsabs.harvard.edu/abs/2015ApJ...810L...5H))  
+
+6. STELLAR AND PLANETARY PROPERTIES OF K2 CAMPAIGN 1 CANDIDATES AND VALIDATION OF 17 PLANETS, INCLUDING A PLANET RECEIVING EARTH-LIKE INSOLATION  
 Montet, Benjamin T., Morton, Timothy D., Foreman-Mackey, Daniel, et al.    
 2015, refereed ([2015ApJ...809...25M](http://adsabs.harvard.edu/abs/2015ApJ...809...25M))  
 
-5. WASP-47: A HOT JUPITER SYSTEM WITH TWO ADDITIONAL PLANETS DISCOVERED BY K2  
+7. OSCILLATING RED GIANTS OBSERVED DURING CAMPAIGN 1 OF THE KEPLER K2 MISSION: NEW PROSPECTS FOR GALACTIC ARCHAEOLOGY  
+Stello, Dennis, Huber, Daniel, Sharma, Sanjib, et al.    
+2015, refereed ([2015ApJ...809L...3S](http://adsabs.harvard.edu/abs/2015ApJ...809L...3S))  
+
+8. INSIGHTS INTO INTERNAL EFFECTS OF COMMON-ENVELOPE EVOLUTION USING THE EXTENDED KEPLER MISSION  
+Hermes, J. J., Gänsicke, B. T., Bischoff-Kim, A., et al.    
+2015, refereed ([2015MNRAS.451.1701H](http://adsabs.harvard.edu/abs/2015MNRAS.451.1701H))  
+
+9. ROTATION PERIODS OF YOUNG BROWN DWARFS: K2 SURVEY IN UPPER SCORPIUS  
+Scholz, Alexander, Kostov, Veselin, Jayawardhana, Ray, et al.    
+2015, refereed ([2015ApJ...809L..29S](http://adsabs.harvard.edu/abs/2015ApJ...809L..29S))  
+
+10. WASP-47: A HOT JUPITER SYSTEM WITH TWO ADDITIONAL PLANETS DISCOVERED BY K2  
 Becker, Juliette C., Vanderburg, Andrew, Adams, Fred C., et al.    
 2015, pre-print ([2015arXiv150802411B](http://adsabs.harvard.edu/abs/2015arXiv150802411B))  
 
-6. K2 VARIABLE CATALOGUE: VARIABLE STARS AND ECLIPSING BINARIES IN K2 CAMPAIGNS 1 AND 0  
+11. PUSHING THE LIMITS, EPISODE 2: K2 OBSERVATIONS OF EXTRAGALACTIC RR LYRAE STARS IN THE DWARF GALAXY LEO IV  
+Molnรกr, L., Pรกl, A., Plachy, E., et al.    
+2015, pre-print ([2015arXiv150805587M](http://adsabs.harvard.edu/abs/2015arXiv150805587M))  
+
+12. STARSPOTS ON WASP-85  
+Močnik, T., Clark, B., Anderson, D. R., et al.    
+2015, pre-print ([2015arXiv150807281M](http://adsabs.harvard.edu/abs/2015arXiv150807281M))  
+
+13. K2 VARIABLE CATALOGUE: VARIABLE STARS AND ECLIPSING BINARIES IN K2 CAMPAIGNS 1 AND 0  
 Armstrong, D. J., Kirk, J., Lam, K. W. F., et al.    
 2015, refereed ([2015A&A...579A..19A](http://adsabs.harvard.edu/abs/2015A&A...579A..19A))  
 
-7. CAOS SPECTROSCOPY OF AM STARS KEPLER TARGETS  
-Catanzaro, G., Ripepi, V., Biazzo, K., et al.    
-2015, refereed ([2015MNRAS.451.4703C](http://adsabs.harvard.edu/abs/2015MNRAS.451.4703C))  
-
-8. K2 AND MAXI OBSERVATIONS OF SCO X-1 - EVIDENCE FOR DISC PRECESSION?  
-Hakala, Pasi, Ramsay, Gavin, Barclay, Thomas, et al.    
-2015, pre-print ([2015arXiv150700149H](http://adsabs.harvard.edu/abs/2015arXiv150700149H))  
-
-9. THE MASS─RADIUS RELATION OF YOUNG STARS. I. USCO 5, AN M4.5 ECLIPSING BINARY IN UPPER SCORPIUS OBSERVED BY K2  
+14. THE MASS─RADIUS RELATION OF YOUNG STARS. I. USCO 5, AN M4.5 ECLIPSING BINARY IN UPPER SCORPIUS OBSERVED BY K2  
 Kraus, Adam L., Cody, Ann Marie, Covey, Kevin R., et al.    
 2015, refereed ([2015ApJ...807....3K](http://adsabs.harvard.edu/abs/2015ApJ...807....3K))  
 
-10. KEPLER'S FIRST VIEW OF O-STAR VARIABILITY: K2 DATA OF FIVE O STARS IN CAMPAIGN 0 AS A PROOF-OF-CONCEPT FOR O-STAR ASTEROSEISMOLOGY  
-Buysschaert, B., Aerts, C., Bloemen, S., et al.    
-2015, pre-print ([2015arXiv150703091B](http://adsabs.harvard.edu/abs/2015arXiv150703091B))  
+15. CAOS SPECTROSCOPY OF AM STARS KEPLER TARGETS  
+Catanzaro, G., Ripepi, V., Biazzo, K., et al.    
+2015, refereed ([2015MNRAS.451..184C](http://adsabs.harvard.edu/abs/2015MNRAS.451..184C))  
 
-11. ASTEROSEISMOLOGY OF SOLAR-TYPE STARS WITH K2  
+16. HATS9-B AND HATS10-B: TWO COMPACT HOT JUPITERS IN FIELD 7 OF THE K2 MISSION  
+Brahm, R., Jordán, A., Hartman, J. D., et al.    
+2015, refereed ([2015AJ....150...33B](http://adsabs.harvard.edu/abs/2015AJ....150...33B))  
+
+17. ASTEROSEISMOLOGY OF SOLAR-TYPE STARS WITH K2  
 Chaplin, W. J., Lund, M. N., Handberg, R., et al.    
 2015, pre-print ([2015arXiv150701827C](http://adsabs.harvard.edu/abs/2015arXiv150701827C))  
 
-12. AN RR LYRAE FAMILY PORTRAIT: 33 STARS OBSERVED IN PISCES WITH K2-E2  
-Molnár, L., Szabó, R., Moskalik, P. A., et al.    
-2015, pre-print ([2015arXiv150704714M](http://adsabs.harvard.edu/abs/2015arXiv150704714M))  
-
-13. A SECOND CASE OF OUTBURSTS IN A PULSATING WHITE DWARF OBSERVED BY KEPLER  
-Hermes, J. J., Montgomery, M. H., Bell, Keaton J., et al.    
-2015, pre-print ([2015arXiv150706319H](http://adsabs.harvard.edu/abs/2015arXiv150706319H))  
-
-14. SDSS J1152+0248: AN ECLIPSING DOUBLE WHITE DWARF FROM THE KEPLER K2 CAMPAIGN  
+18. SDSS J1152+0248: AN ECLIPSING DOUBLE WHITE DWARF FROM THE KEPLER K2 CAMPAIGN  
 Hallakoun, N., Maoz, D., Kilic, M., et al.    
 2015, pre-print ([2015arXiv150706311H](http://adsabs.harvard.edu/abs/2015arXiv150706311H))  
 
-15. HIGH PRECISION PHOTOMETRY FOR K2 CAMPAIGN 1  
+19. HIGH PRECISION PHOTOMETRY FOR K2 CAMPAIGN 1  
 Huang, Chelsea X., Penev, K., Hartman, J. D., et al.    
 2015, pre-print ([2015arXiv150707578H](http://adsabs.harvard.edu/abs/2015arXiv150707578H))  
 
-16. TWO TRANSITING EARTH-SIZE PLANETS NEAR RESONANCE ORBITING A NEARBY COOL STAR  
+20. TWO TRANSITING EARTH-SIZE PLANETS NEAR RESONANCE ORBITING A NEARBY COOL STAR  
 Petigura, Erik A., Schlieder, Joshua E., Crossfield, Ian J. M., et al.    
 2015, pre-print ([2015arXiv150708256P](http://adsabs.harvard.edu/abs/2015arXiv150708256P))  
 
-17. HAT-P-56B: AN INFLATED MASSIVE HOT JUPITER TRANSITING A BRIGHT F STAR FOLLOWED UP WITH K2.0 OBSERVATIONS  
-Huang, C. X., Hartman, J. D., Bakos, G. Á., et al.    
-2015, pre-print ([2015arXiv150601776H](http://adsabs.harvard.edu/abs/2015arXiv150601776H))  
-
-18. K2P<SUP>2</SUP>— A PHOTOMETRY PIPELINE FOR THE K2 MISSION  
+21. K2P<SUP>2</SUP>— A PHOTOMETRY PIPELINE FOR THE K2 MISSION  
 Lund, Mikkel N., Handberg, Rasmus, Davies, Guy R., et al.    
 2015, refereed ([2015ApJ...806...30L](http://adsabs.harvard.edu/abs/2015ApJ...806...30L))  
 
-19. ROTATION PERIODS OF YOUNG BROWN DWARFS: K2 SURVEY IN UPPER SCORPIUS  
-Scholz, Aleks, Kostov, Veselin, Jayawardhana, Ray, et al.    
-2015, pre-print ([2015arXiv150606771S](http://adsabs.harvard.edu/abs/2015arXiv150606771S))  
-
-20. OSCILLATING RED GIANTS OBSERVED DURING CAMPAIGN 1 OF THE KEPLER K2 MISSION: NEW PROSPECTS FOR GALACTIC ARCHAEOLOGY  
-Stello, D., Huber, D., Sharma, S., et al.    
-2015, pre-print ([2015arXiv150608931S](http://adsabs.harvard.edu/abs/2015arXiv150608931S))  
-
-21. A SYSTEMATIC SEARCH FOR TRANSITING PLANETS IN THE K2 DATA  
+22. A SYSTEMATIC SEARCH FOR TRANSITING PLANETS IN THE K2 DATA  
 Foreman-Mackey, Daniel, Montet, Benjamin T., Hogg, David W., et al.    
 2015, refereed ([2015ApJ...806..215F](http://adsabs.harvard.edu/abs/2015ApJ...806..215F))  
 
-22. OBSERVATIONAL SIGNATURES OF CONVECTIVELY DRIVEN WAVES IN MASSIVE STARS  
+23. OBSERVATIONAL SIGNATURES OF CONVECTIVELY DRIVEN WAVES IN MASSIVE STARS  
 Aerts, C., Rogers, T. M.    
 2015, refereed ([2015ApJ...806L..33A](http://adsabs.harvard.edu/abs/2015ApJ...806L..33A))  
 
-23. THE VIEW FROM K2: QUESTIONING THE TRADITIONAL VIEW OF FLARING ON EARLY DM STARS  
-Ramsay, Gavin, Doyle, J. Gerry    
-2015, refereed ([2015MNRAS.449.3015R](http://adsabs.harvard.edu/abs/2015MNRAS.449.3015R))  
+24. HAT-P-56B: AN INFLATED MASSIVE HOT JUPITER TRANSITING A BRIGHT F STAR FOLLOWED UP WITH K2 CAMPAIGN 0 OBSERVATIONS  
+Huang, C. X., Hartman, J. D., Bakos, G. Á., et al.    
+2015, pre-print ([2015arXiv150601776H](http://adsabs.harvard.edu/abs/2015arXiv150601776H))  
 
-24. INSIGHTS INTO INTERNAL EFFECTS OF COMMON-ENVELOPE EVOLUTION USING THE EXTENDED KEPLER MISSION  
-Hermes, J. J., Gaensicke, B. T., Bischoff-Kim, A., et al.    
-2015, pre-print ([2015arXiv150501848H](http://adsabs.harvard.edu/abs/2015arXiv150501848H))  
-
-25. PUSHING THE LIMITS: K2 OBSERVATIONS OF THE TRANS-NEPTUNIAN OBJECTS 2002 GV<SUB>31</SUB> AND (278361) 2007 JJ<SUB>43</SUB>  
-Pál, A., Szabó, R., Szabó, Gy. M., et al.    
-2015, refereed ([2015ApJ...804L..45P](http://adsabs.harvard.edu/abs/2015ApJ...804L..45P))  
-
-26. A NEARBY M STAR WITH THREE TRANSITING SUPER-EARTHS DISCOVERED BY K2  
+25. A NEARBY M STAR WITH THREE TRANSITING SUPER-EARTHS DISCOVERED BY K2  
 Crossfield, Ian J. M., Petigura, Erik, Schlieder, Joshua E., et al.    
 2015, refereed ([2015ApJ...804...10C](http://adsabs.harvard.edu/abs/2015ApJ...804...10C))  
 
-27. THE MASS-RADIUS RELATION OF YOUNG STARS, I: USCOCTIO 5, AN M4.5 ECLIPSING BINARY IN UPPER SCORPIUS OBSERVED BY K2  
-Kraus, Adam L., Cody, Ann Marie, Covey, Kevin R., et al.    
-2015, pre-print ([2015arXiv150502446K](http://adsabs.harvard.edu/abs/2015arXiv150502446K))  
+26. PUSHING THE LIMITS: K2 OBSERVATIONS OF THE TRANS-NEPTUNIAN OBJECTS 2002 GV<SUB>31</SUB> AND (278361) 2007 JJ<SUB>43</SUB>  
+Pál, A., Szabó, R., Szabó, Gy. M., et al.    
+2015, refereed ([2015ApJ...804L..45P](http://adsabs.harvard.edu/abs/2015ApJ...804L..45P))  
 
-28. OBSERVATIONAL SIGNATURES OF CONVECTIVELY DRIVEN WAVES IN MASSIVE STARS  
-Aerts, C., Rogers, T. M.    
-2015, pre-print ([2015arXiv150506648A](http://adsabs.harvard.edu/abs/2015arXiv150506648A))  
+27. THE VIEW FROM K2: QUESTIONING THE TRADITIONAL VIEW OF FLARING ON EARLY DM STARS  
+Ramsay, Gavin, Doyle, J. Gerry    
+2015, refereed ([2015MNRAS.449.3015R](http://adsabs.harvard.edu/abs/2015MNRAS.449.3015R))  
+
+28. EMPIRICAL MICROLENSING EVENT RATES PREDICTED BY PHENOMENOLOGICAL MODEL  
+Poleski, R.    
+2015, pre-print ([2015arXiv150507104P](http://adsabs.harvard.edu/abs/2015arXiv150507104P))  
 
 29. SYSTEMATICS-INSENSITIVE PERIODIC SIGNAL SEARCH WITH K2  
 Angus, Ruth, Foreman-Mackey, Daniel, Johnson, John A.    
 2015, pre-print ([2015arXiv150507105A](http://adsabs.harvard.edu/abs/2015arXiv150507105A))  
 
-30. EMPIRICAL MICROLENSING EVENT RATES PREDICTED BY PHENOMENOLOGICAL MODEL  
-Poleski, R.    
-2015, pre-print ([2015arXiv150507104P](http://adsabs.harvard.edu/abs/2015arXiv150507104P))  
-
-31. HAT-P-54B: A HOT JUPITER TRANSITING A 0.6 M<SUB>☉</SUB> STAR IN FIELD 0 OF THE K2 MISSION  
+30. HAT-P-54B: A HOT JUPITER TRANSITING A 0.6 M<SUB>☉</SUB> STAR IN FIELD 0 OF THE K2 MISSION  
 Bakos, G. Á., Hartman, J. D., Bhatti, W., et al.    
 2015, refereed ([2015AJ....149..149B](http://adsabs.harvard.edu/abs/2015AJ....149..149B))  
 
-32. STELLAR STATISTICS ALONG THE ECLIPTIC AND THE IMPACT ON THE K2 MISSION CONCEPT  
+31. STELLAR STATISTICS ALONG THE ECLIPTIC AND THE IMPACT ON THE K2 MISSION CONCEPT  
 Prša, Andrej, Robin, Annie, Barclay, Thomas    
 2015, refereed ([2015IJAsB..14..165P](http://adsabs.harvard.edu/abs/2015IJAsB..14..165P))  
 
-33. SPOTS ON AM STARS  
+32. SPOTS ON AM STARS  
 Balona, L. A., Catanzaro, G., Abedigamba, O. P., et al.    
 2015, refereed ([2015MNRAS.448.1378B](http://adsabs.harvard.edu/abs/2015MNRAS.448.1378B))  
 
-34. THE K2-ESPRINT PROJECT I: DISCOVERY OF THE DISINTEGRATING ROCKY PLANET WITH A COMETARY HEAD AND TAIL EPIC 201637175B  
+33. THE K2-ESPRINT PROJECT I: DISCOVERY OF THE DISINTEGRATING ROCKY PLANET WITH A COMETARY HEAD AND TAIL EPIC 201637175B  
 Sanchis-Ojeda, R., Rappaport, S., Pallé, E., et al.    
 2015, pre-print ([2015arXiv150404379S](http://adsabs.harvard.edu/abs/2015arXiv150404379S))  
 
-35. CAOS SPECTROSCOPY OF AM STARS KEPLER TARGETS  
-Catanzaro, G., Ripepi, V., Biazzo, K., et al.    
-2015, pre-print ([2015arXiv150407740C](http://adsabs.harvard.edu/abs/2015arXiv150407740C))  
-
-36. MAIN-BELT ASTEROIDS IN THE K2 ENGINEERING FIELD OF VIEW  
-Szabó, R., Sárneczky, K., Szabó, Gy. M., et al.    
-2015, refereed ([2015AJ....149..112S](http://adsabs.harvard.edu/abs/2015AJ....149..112S))  
-
-37. MESSIER 35 (NGC 2168) DANCE. I. MEMBERSHIP, PROPER MOTIONS, AND MULTIWAVELENGTH PHOTOMETRY  
+34. MESSIER 35 (NGC 2168) DANCE. I. MEMBERSHIP, PROPER MOTIONS, AND MULTIWAVELENGTH PHOTOMETRY  
 Bouy, H., Bertin, E., Barrado, D., et al.    
 2015, refereed ([2015A&A...575A.120B](http://adsabs.harvard.edu/abs/2015A&A...575A.120B))  
 
-38. VARIABLE STARS IN TWO OPEN CLUSTERS WITHIN THE KEPLER/K2-CAMPAIGN-0 FIELD: M35 AND NGC 2158  
-Nardiello, D., Bedin, L. R., Nascimbeni, V., et al.    
-2015, refereed ([2015MNRAS.447.3536N](http://adsabs.harvard.edu/abs/2015MNRAS.447.3536N))  
+35. MAIN-BELT ASTEROIDS IN THE K2 ENGINEERING FIELD OF VIEW  
+Szabó, R., Sárneczky, K., Szabó, Gy. M., et al.    
+2015, refereed ([2015AJ....149..112S](http://adsabs.harvard.edu/abs/2015AJ....149..112S))  
 
-39. A DETECTION THRESHOLD IN THE AMPLITUDE SPECTRA CALCULATED FROM KEPLER DATA OBTAINED DURING K2 MISSION  
-Baran, A. S., Koen, C., Pokrzywka, B.    
-2015, refereed ([2015MNRAS.448L..16B](http://adsabs.harvard.edu/abs/2015MNRAS.448L..16B))  
-
-40. PRECISE TIME SERIES PHOTOMETRY FOR THE KEPLER-2.0 MISSION  
+36. PRECISE TIME SERIES PHOTOMETRY FOR THE KEPLER-2.0 MISSION  
 Aigrain, S., Hodgkin, S. T., Irwin, M. J., et al.    
 2015, refereed ([2015MNRAS.447.2880A](http://adsabs.harvard.edu/abs/2015MNRAS.447.2880A))  
 
-41. STELLAR AND PLANETARY PROPERTIES OF K2 CAMPAIGN 1 CANDIDATES AND VALIDATION OF 18 SYSTEMS, INCLUDING A PLANET RECEIVING EARTH-LIKE INSOLATION  
-Montet, Benjamin T., Morton, Timothy D., Foreman-Mackey, Daniel, et al.    
-2015, pre-print ([2015arXiv150307866M](http://adsabs.harvard.edu/abs/2015arXiv150307866M))  
+37. VARIABLE STARS IN TWO OPEN CLUSTERS WITHIN THE KEPLER/K2-CAMPAIGN-0 FIELD: M35 AND NGC 2158  
+Nardiello, D., Bedin, L. R., Nascimbeni, V., et al.    
+2015, refereed ([2015MNRAS.447.3536N](http://adsabs.harvard.edu/abs/2015MNRAS.447.3536N))  
 
-42. ONE OF THE CLOSEST PLANET PAIRS TO THE 3:2 MEAN MOTION RESONANCE, CONFIRMED WITH K2 OBSERVATIONS AND TRANSIT TIMING VARIATIONS: EPIC201505350  
-Armstrong, David J., Veras, Dimitri, Barros, Susana C. C., et al.    
+38. A DETECTION THRESHOLD IN THE AMPLITUDE SPECTRA CALCULATED FROM KEPLER DATA OBTAINED DURING K2 MISSION  
+Baran, A. S., Koen, C., Pokrzywka, B.    
+2015, refereed ([2015MNRAS.448L..16B](http://adsabs.harvard.edu/abs/2015MNRAS.448L..16B))  
+
+39. ONE OF THE CLOSEST EXOPLANET PAIRS TO THE 3:2 MEAN MOTION RESONANCE: K2-19B \& C  
+Armstrong, David J., Santerne, Alexandre, Veras, Dimitri, et al.    
 2015, pre-print ([2015arXiv150300692A](http://adsabs.harvard.edu/abs/2015arXiv150300692A))  
 
-43. KEPLER ECLIPSING BINARY STARS. VI. IDENTIFICATION OF ECLIPSING BINARIES IN THE K2 CAMPAIGN 0 DATA-SET  
-LaCourse, Daryll M., Jek, Kian J., Jacobs, Thomas L., et al.    
-2015, pre-print ([2015arXiv150301829L](http://adsabs.harvard.edu/abs/2015arXiv150301829L))  
-
-44. HATS-9B AND HATS-10B: TWO COMPACT HOT JUPITERS IN FIELD 7 OF THE K2 MISSION  
-Brahm, R., Jordán, A., Hartman, J. D., et al.    
-2015, pre-print ([2015arXiv150300062B](http://adsabs.harvard.edu/abs/2015arXiv150300062B))  
-
-45. CHARACTERIZING K2 PLANET DISCOVERIES: A SUPER-EARTH TRANSITING THE BRIGHT K DWARF HIP 116454  
+40. CHARACTERIZING K2 PLANET DISCOVERIES: A SUPER-EARTH TRANSITING THE BRIGHT K DWARF HIP 116454  
 Vanderburg, Andrew, Montet, Benjamin T., Johnson, John Asher, et al.    
 2015, refereed ([2015ApJ...800...59V](http://adsabs.harvard.edu/abs/2015ApJ...800...59V))  
 
-46. THE ASTEROSEISMOLOGY OF ZZ CETI STAR GD1212  
+41. THE ASTEROSEISMOLOGY OF ZZ CETI STAR GD1212  
 Guifang, Lin, Yan, Li, Jie, Su    
 2015, pre-print ([2015arXiv150105360G](http://adsabs.harvard.edu/abs/2015arXiv150105360G))  
 
@@ -207,7 +188,7 @@ Brown, D. J. A., Anderson, D. R., Armstrong, D. J., et al.
 2014, pre-print ([2014arXiv1412.7761B](http://adsabs.harvard.edu/abs/2014arXiv1412.7761B))  
 
 4. KEPLER ECLIPSING BINARY STARS. V. IDENTIFICATION OF 31 CANDIDATE ECLIPSING BINARIES IN THE K2 ENGINEERING DATASET  
-Conroy, Kyle E., Prša, Andrej, Stassun, Keivan G., et al.    
+Conroy, Kyle E., PrĹĄa, Andrej, Stassun, Keivan G., et al.    
 2014, refereed ([2014PASP..126..914C](http://adsabs.harvard.edu/abs/2014PASP..126..914C))  
 
 5. K2 VARIABLE CATALOGUE I: A CATALOGUE OF VARIABLE STARS FROM K2 FIELD 0  

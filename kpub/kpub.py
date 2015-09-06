@@ -10,6 +10,7 @@ import json
 import datetime
 import argparse
 import sqlite3 as sql
+import numpy as np
 
 try:
     import ads
@@ -26,6 +27,17 @@ from . import plot, PACKAGEDIR
 
 # Where is the default location of the SQLite database?
 DEFAULT_DB = os.path.expanduser("~/.kpub.db")
+
+# Which metadata fields do we want to retrieve from the ADS API?
+# (basically everything apart from 'aff' and 'body' to reduce data volume)
+FIELDS = ['date', 'pub', 'id', 'volume', 'links_data', 'citation', 'doi',
+          'eid', 'keyword_schema', 'citation_count', 'year', 'identifier',
+          'keyword_norm', 'reference', 'abstract', 'recid',
+          'alternate_bibcode', 'arxiv_class', 'bibcode', 'first_author_norm',
+          'pubdate', 'reader', 'doctype', 'title', 'pub_raw', 'property',
+          'author', 'email', 'orcid', 'keyword', 'author_norm',
+          'cite_read_boost', 'database', 'classic_factor', 'ack', 'page',
+          'first_author', 'read_count', 'indexstamp', 'issue', 'keyword_facet']
 
 
 class Highlight:
@@ -67,7 +79,7 @@ class PublicationDB(object):
                                 date,
                                 mission,
                                 science,
-                                json)""")
+                                metrics)""")
 
     def add(self, article, mission="kepler", science="exoplanets"):
         """Adds a single article object to the database.
@@ -75,7 +87,7 @@ class PublicationDB(object):
         Parameters
         ----------
         article : `ads.Article` object.
-            The object typically returned by `ads.query`.
+            An article object as returned by `ads.SearchQuery`.
         """
         log.debug('Ingesting {}'.format(article.bibcode))
         # Also store the extra metadata in the json string
@@ -168,13 +180,17 @@ class PublicationDB(object):
             log.error("This action requires the ADS key to be setup.")
             return
         
-        q = ads.SearchQuery(q=bibcode)
+        q = ads.SearchQuery(q="identifier:{}".format(bibcode), fl=FIELDS)
         for article in q:
-            # Data products are sometimes returned as NONARTICLE entries
+            # Print useful warnings
+            if bibcode != article.bibcode:
+                log.warning("Requested {} but ADS API returned {}".format(bibcode, article.bibcode))
+            if 'NONARTICLE' in article.property:
+                # Note: data products are sometimes returned as NONARTICLE entries
+                log.warning("{} is not an article.".format(article.bibcode))  
+
             if article in self:
                 log.warning("{} is already in the db.".format(article.bibcode))
-            elif 'NONARTICLE' in article.property:
-                log.warning("{} is not an article.".format(article.bibcode))
             else:
                 if interactive:
                     self.add_interactively(article)
@@ -208,13 +224,14 @@ class PublicationDB(object):
         if science is not None:
             where += " AND science = '{}' ".format(science)
 
-        cur = self.con.execute("SELECT year, month, json "
+        cur = self.con.execute("SELECT year, month, json, bibcode "
                                "FROM pubs "
                                "WHERE {} "
                                "ORDER BY date DESC; ".format(where))
         return cur.fetchall()
 
-    def to_markdown(self, title="Publications", group_by_month=False, **kwargs):
+    def to_markdown(self, title="Publications",
+                    group_by_month=False, save_as=None, **kwargs):
         """Returns the publication list in markdown format.
         """
         if group_by_month:
@@ -235,18 +252,132 @@ class PublicationDB(object):
         templatedir = os.path.join(PACKAGEDIR, 'templates')
         env = jinja2.Environment(loader=jinja2.FileSystemLoader(templatedir))
         template = env.get_template('template.md')
-        markdown = template.render(title=title, articles=articles)
+        markdown = template.render(title=title, save_as=save_as, articles=articles)
         if sys.version_info >= (3, 0):
             return markdown  # Python 3
         else:
             return markdown.encode("utf-8")  # Python 2
 
+    def save_markdown(self, output_fn, **kwargs):
+        """Saves the database to a text file in markdown format.
+
+        Parameters
+        ----------
+        output_fn : str
+            Path of the file to write.
+        """
+        markdown = self.to_markdown(save_as=output_fn.replace("md", "html"),
+                                    **kwargs)
+        log.info('Writing {}'.format(output_fn))
+        f = open(output_fn, 'w')
+        f.write(markdown)
+        f.close()
+            
     def plot(self):
         """Saves beautiful plot of the database."""
         for extension in ['pdf', 'png']:
             plot.plot_by_year(self, "kpub-publication-rate.{}".format(extension))
             plot.plot_science_piechart(self, "kpub-piechart.{}".format(extension))
 
+    def get_metrics(self):
+        """Returns a dictionary of overall publication statistics.
+
+        The metrics include:
+        * # of publications since XX.
+        * # of unique author surnames.
+        * # of citations.
+        * # of peer-reviewed pubs.
+        * # of Kepler/K2/exoplanet/astrophysics.
+        """
+        metrics = {
+                   "publication_count": 0,
+                   "kepler_count": 0,
+                   "k2_count": 0,
+                   "exoplanets_count": 0,
+                   "astrophysics_count": 0,
+                   "refereed_count": 0,
+                   "citation_count": 0
+                   }
+        authors = []
+        for article in self.query():
+            api_response = article[2]  
+            js = json.loads(api_response)
+            metrics["publication_count"] += 1
+            metrics["{}_count".format(js["mission"])] += 1
+            try:
+                metrics["{}_count".format(js["science"])] += 1
+            except KeyError:
+                log.warning("{}: no science category".format(js["bibcode"]))
+            authors.extend(js["author_norm"])
+            if "REFEREED" in js["property"]:
+                metrics["refereed_count"] += 1
+            try:
+                metrics["citation_count"] += js["citation_count"]
+            except KeyError:
+                log.warning("{}: no citation_count".format(js["bibcode"]))
+        metrics["author_count"] = np.unique(authors).size
+        # Also compute fractions
+        for frac in ["kepler", "k2", "exoplanets", "astrophysics"]:
+            metrics[frac+"_fraction"] = metrics[frac+"_count"] / metrics["publication_count"]
+        return metrics
+
+    def get_most_cited(self, top=10):
+        """Returns the most-cited publications."""
+        bibcodes, citations = [], []
+        articles = self.query()
+        for article in articles:
+            api_response = article[2]
+            js = json.loads(api_response)
+            bibcodes.append(article[3])
+            citations.append(js["citation_count"])
+        idx_top = np.argsort(citations)[::-1][0:top]
+        return [json.loads(articles[idx][2]) for idx in idx_top]
+
+    def get_most_read(self, top=10):
+        """Returns the most-cited publications."""
+        bibcodes, citations = [], []
+        articles = self.query()
+        for article in articles:
+            api_response = article[2]
+            js = json.loads(api_response)
+            bibcodes.append(article[3])
+            citations.append(js["read_count"])
+        idx_top = np.argsort(citations)[::-1][0:top]
+        return [json.loads(articles[idx][2]) for idx in idx_top]
+
+    def get_most_active_first_authors(self, min_papers=6):
+        """Returns the names and paper counts of the most active first authors."""
+        articles = self.query()
+        authors = {}
+        for article in articles:
+            api_response = article[2]
+            js = json.loads(api_response)
+            first_author = js["first_author_norm"]
+            try:
+                authors[first_author] += 1
+            except KeyError:
+                authors[first_author] = 1
+        names = np.array(list(authors.keys()))
+        paper_count = np.array(list(authors.values()))
+        idx_top = np.argsort(paper_count)[::-1]
+        mask = paper_count[idx_top] >= min_papers
+        return zip(names[idx_top], paper_count[idx_top[mask]])
+
+    def get_all_authors(self, top=20):
+        articles = self.query()
+        authors = {}
+        for article in articles:
+            api_response = article[2]
+            js = json.loads(api_response)
+            for auth in js["author_norm"]:
+                try:
+                    authors[auth] += 1
+                except KeyError:
+                    authors[auth] = 1
+        names = np.array(list(authors.keys()))
+        paper_count = np.array(list(authors.values()))
+        idx_top = np.argsort(paper_count)[::-1][:top]
+        return names[idx_top], paper_count[idx_top]
 
     def update(self, month=None,
                exclude=['keplerian', 'johannes', 'k<sub>2</sub>', "kepler equation",
@@ -281,6 +412,7 @@ class PublicationDB(object):
                                    pubdate:"{}"
                                    database:"{}"
                                 """.format(month, database),
+                              fl=FIELDS,  
                               rows=9999999999)
         articles = list(qry)
         for idx, article in enumerate(articles):
@@ -301,6 +433,7 @@ class PublicationDB(object):
                                    pubdate:"{}"
                                    database:"{}"
                                 """.format(month, database),
+                              fl=FIELDS,
                               rows=9999999999)
         articles = list(qry)
 
@@ -325,7 +458,7 @@ class PublicationDB(object):
             try:
                 if "NOT REFEREED" in article.property and article.pub != "ArXiv e-prints":
                     ignore = True
-            except AttributeError:
+            except (AttributeError, ads.exceptions.APIResponseError):
                 pass  # no .pub attribute
 
             # Ignore proposals and cospar abstracts
@@ -371,31 +504,38 @@ def kpub(args=None):
             else:
                 suffix = ""
                 title_suffix = ""
-            output = db.to_markdown(group_by_month=bymonth,
-                                    title="Kepler/K2 publications{}".format(title_suffix))
-            filename = 'kpub{}.md'.format(suffix)
-            log.info('Writing {}'.format(filename))
-            f = open(filename, 'w')
-            f.write(output)
-            f.close()
+            output_fn = 'kpub{}.md'.format(suffix)
+            db.save_markdown(output_fn,
+                             group_by_month=bymonth,
+                             title="Kepler/K2 publications{}".format(title_suffix))
             for science in ['exoplanets', 'astrophysics']:
-                output = db.to_markdown(group_by_month=bymonth,
-                                        science=science,
-                                        title="Kepler/K2 {} publications{}".format(science.capitalize(), title_suffix))
-                filename = 'kpub-{}{}.md'.format(science, suffix)
-                log.info('Writing {}'.format(filename))
-                f = open(filename, 'w')
-                f.write(output)
-                f.close()
+                output_fn = 'kpub-{}{}.md'.format(science, suffix)
+                db.save_markdown(output_fn,
+                                 group_by_month=bymonth,
+                                 science=science,
+                                 title="Kepler/K2 {} publications{}".format(science, title_suffix))
             for mission in ['kepler', 'k2']:
-                output = db.to_markdown(group_by_month=bymonth,
-                                        mission=mission,
-                                        title="{} publications{}".format(mission.capitalize(), title_suffix))
-                filename = 'kpub-{}{}.md'.format(mission, suffix)
-                log.info('Writing {}'.format(filename))
-                f = open(filename, 'w')
-                f.write(output)
-                f.close()
+                output_fn = 'kpub-{}{}.md'.format(mission, suffix)
+                db.save_markdown(output_fn,
+                                 group_by_month=bymonth,
+                                 mission=mission,
+                                 title="{} publications{}".format(mission.capitalize(), title_suffix))
+                
+        # Finally, produce an overview page
+        templatedir = os.path.join(PACKAGEDIR, 'templates')
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(templatedir))
+        template = env.get_template('template-overview.md')
+        markdown = template.render(metrics=db.get_metrics(),
+                                   most_cited=db.get_most_cited(20),
+                                   most_active_first_authors=db.get_most_active_first_authors(),
+                                   now=datetime.datetime.now())
+        # most_read=db.get_most_read(20),
+        filename = 'publications.md'
+        log.info('Writing {}'.format(filename))
+        f = open(filename, 'w')
+        f.write(markdown)
+        f.close()        
+
     else:
         if args.exoplanets and not args.astrophysics:
             science = "exoplanets"

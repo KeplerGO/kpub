@@ -119,7 +119,7 @@ def plot_by_year(db,
             width=barwidth)
 
     # Aesthetics
-    plt.ylabel("Number of publications")
+    plt.ylabel("Publications per year")
     ax.get_xaxis().get_major_formatter().set_useOffset(False)
     plt.xticks(range(first_year - 1, current_year + 1))
     plt.xlim([first_year - 0.75*barwidth, current_year + 0.75*barwidth])
@@ -168,7 +168,7 @@ def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=100):
 
     # Plot the pie chart
     patches, texts, autotexts = plt.pie(count,
-                                        colors=['#f39c12', '#128f76'],
+                                        colors=['#f39c12', '#18bc9c'],
                                         autopct="%.0f%%",
                                         startangle=90)
     # Now take care of the aesthetics

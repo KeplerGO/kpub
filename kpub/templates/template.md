@@ -1,5 +1,7 @@
-{{ title }}
-{{ "=" * title|length }}
+Title: {{ title }}
+Save_as: {{ save_as }}
+
+[TOC]
 {% for month in articles %}
 
 {{ month }}
