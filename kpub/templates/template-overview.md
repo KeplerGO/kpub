@@ -1,4 +1,4 @@
-Title: Kepler/K2 publication database
+Title: Publication database
 Save_as: publications.html
 
 [TOC]
