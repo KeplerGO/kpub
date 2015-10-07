@@ -17,7 +17,7 @@ on astronomical research.
 Please contact us if you spot an error in the database,
 such as a missing publication.
 
-Last update: {{ now.strftime('%m %b %Y') }}.
+Last update: {{ now.strftime('%d %b %Y') }}.
 
 <hr/>
 
