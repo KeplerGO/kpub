@@ -115,7 +115,7 @@ class PublicationDB(object):
         """
         # Do not show an article that is already in the database
         if article in self:
-            log.warning('{} is already in the database -- skipping.'.format(article.bibcode))
+            log.info('{} is already in the database -- skipping.'.format(article.bibcode))
             return
 
         # First, highlight keywords in the title and abstract
@@ -179,15 +179,15 @@ class PublicationDB(object):
         if ads is None:
             log.error("This action requires the ADS key to be setup.")
             return
-        
+
         q = ads.SearchQuery(q="identifier:{}".format(bibcode), fl=FIELDS)
         for article in q:
             # Print useful warnings
             if bibcode != article.bibcode:
                 log.warning("Requested {} but ADS API returned {}".format(bibcode, article.bibcode))
             if 'NONARTICLE' in article.property:
-                # Note: data products are sometimes returned as NONARTICLE entries
-                log.warning("{} is not an article.".format(article.bibcode))  
+                # Note: data products are sometimes tagged as NONARTICLE
+                log.warning("{} is not an article.".format(article.bibcode))
 
             if article in self:
                 log.warning("{} is already in the db.".format(article.bibcode))
@@ -272,7 +272,7 @@ class PublicationDB(object):
         f = open(output_fn, 'w')
         f.write(markdown)
         f.close()
-            
+
     def plot(self):
         """Saves beautiful plot of the database."""
         for extension in ['pdf', 'png']:
@@ -300,7 +300,7 @@ class PublicationDB(object):
                    }
         authors = []
         for article in self.query():
-            api_response = article[2]  
+            api_response = article[2]
             js = json.loads(api_response)
             metrics["publication_count"] += 1
             metrics["{}_count".format(js["mission"])] += 1
@@ -346,7 +346,7 @@ class PublicationDB(object):
         return [json.loads(articles[idx][2]) for idx in idx_top]
 
     def get_most_active_first_authors(self, min_papers=6):
-        """Returns the names and paper counts of the most active first authors."""
+        """Returns names and paper counts of the most active first authors."""
         articles = self.query()
         authors = {}
         for article in articles:
@@ -380,9 +380,10 @@ class PublicationDB(object):
         return names[idx_top], paper_count[idx_top]
 
     def update(self, month=None,
-               exclude=['keplerian', 'johannes', 'k<sub>2</sub>', "kepler equation",
-                        "kepler's equation", "xmm-newton", "kepler's law", "kepler's third law",
-                        "kepler problem", "kepler crater", "kepler's supernova", "kepler's snr"]):
+               exclude=['keplerian', 'johannes', 'k<sub>2</sub>',
+                        "kepler equation", "kepler's equation", "xmm-newton",
+                        "kepler's law", "kepler's third law", "kepler problem",
+                        "kepler crater", "kepler's supernova", "kepler's snr"]):
         """Query ADS for new publications.
 
         Parameters
@@ -423,13 +424,19 @@ class PublicationDB(object):
 
         # Then search for keywords in the title and abstracts
         log.info("Querying ADS for titles and abstracts (month={}).".format(month))
-        qry = ads.SearchQuery(q="""(abs:"Kepler"
+        qry = ads.SearchQuery(q="""(
+                                    abs:"Kepler"
                                     OR abs:"K2"
                                     OR abs:"KIC"
                                     OR abs:"EPIC"
                                     OR abs:"KOI"
                                     OR title:"Kepler"
-                                    OR title:"K2")
+                                    OR title:"K2"
+                                    OR full:"Kepler photometry"
+                                    OR full:"K2 photometry"
+                                    OR full:"Kepler lightcurve"
+                                    OR full:"K2 lightcurve"
+                                    )
                                    pubdate:"{}"
                                    database:"{}"
                                 """.format(month, database),
