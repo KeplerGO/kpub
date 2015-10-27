@@ -5,17 +5,25 @@ Save_as: publications.html
 
 ## Summary
 
-The Guest Observer Office curates <a href="kpub.html">a database
-of scientific publications</a> pertaining to Kepler and K2.
-The database currently contains
-{{ metrics["publication_count"] }} publications,
+The Guest Observer office curates a list of scientific publications
+pertaining to Kepler and K2.
+The database contains {{ metrics["publication_count"] }} publications,
 of which {{ metrics["refereed_count"] }} are peer-reviewed.
-This page present a series of statistics
-that demonstrate the important impact of Kepler/K2 data
+It demonstrates the important impact of Kepler/K2 data
 on astronomical research.
 
-Please contact us if you spot an error in the database,
-such as a missing publication.
+You can access the publication list by mission:
+
+ * <a href="kpub-kepler.html">Kepler publications &raquo;</a>
+ * <a href="kpub-k2.html">K2 publications &raquo;</a>
+
+Or by topic:
+
+ * <a href="kpub-exoplanets.html">Exoplanet publications &raquo;</a>
+ * <a href="kpub-astrophysics.html">Astrophysics publications &raquo;</a>
+
+If you spot an error in the database, such as a missing entry,
+please get in touch or open an issue in the <a href="https://github.com/KeplerGO/kpub">GitHub repository</a> of the database.
 
 Last update: {{ now.strftime('%d %b %Y') }}.
 
@@ -29,16 +37,6 @@ The publication count for Kepler is {{ metrics["kepler_count"] }},
 that of K2 is {{ metrics["k2_count"] }}.
 
 ![Publication rate by mission and year]({filename}/images/kpub/kpub-publication-rate.png)
-
-<a href="kpub-kepler.html" class="btn btn-info btn-lg">
-View all Kepler publications &raquo;
-</a>
-<a href="kpub-k2.html" class="btn btn-danger btn-lg">
-View all K2 publications &raquo;
-</a>
-<a href="kpub.html" class="btn btn-default btn-lg">
-View all publications &raquo;
-</a>
 
 <hr/>
 
@@ -54,13 +52,6 @@ pertain to other areas of astrophysics
 
 
 ![Publications by subject]({filename}/images/kpub/kpub-piechart.png)
-
-<a href="kpub-exoplanets.html" class="btn btn-warning btn-lg">
-View all exoplanet publications &raquo;
-</a>
-<a href="kpub-astrophysics.html" class="btn btn-success btn-lg">
-View all astrophysics publications &raquo;
-</a>
 
 <hr/>
 
@@ -107,4 +98,3 @@ Here we list the most-active authors, defined as those with six or more first-au
 {% for author in most_active_first_authors %}
  * {{author[0]}} ({{ "%.0f"|format(author[1]) }} publications)
 {% endfor -%}
-
