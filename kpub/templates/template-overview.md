@@ -3,8 +3,6 @@ Save_as: publications.html
 
 [TOC]
 
-## Summary
-
 The Guest Observer office curates a list of scientific publications
 pertaining to Kepler and K2.
 The database contains {{ metrics["publication_count"] }} publications,
