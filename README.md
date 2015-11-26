@@ -165,9 +165,12 @@ optional arguments:
               ~/.kpub.db.
 ```
 
+## Author
+Created by Geert Barentsen (geert.barentsen at nasa.gov)
+on behalf of the Kepler/K2 Guest Observer Office.
 
 ## Acknowledgements
-
 This tool is made possible thanks to the efforts made by NASA ADS to
 provide a web API, and thanks to the excellent Python client that Andy Casey
 (@andycasey) wrote to use the API. Thanks ADS, thanks Andy!
+
