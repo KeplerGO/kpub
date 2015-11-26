@@ -1,5 +1,6 @@
-kpub: Kepler publication database
-=================================
+# kpub: Kepler publication database
+
+***A database of scientific publications related to NASA's Kepler/K2 mission.***
 
 `kpub` is a mission-specific tool that enables NASA's Kepler/K2 Guest Observer 
 Office to keep track of its mission's scientific publications in an easy way. 
