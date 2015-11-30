@@ -115,7 +115,8 @@ class PublicationDB(object):
         """
         # Do not show an article that is already in the database
         if article in self:
-            log.info('{} is already in the database -- skipping.'.format(article.bibcode))
+            log.info("{} is already in the database "
+                     "-- skipping.".format(article.bibcode))
             return
 
         # First, highlight keywords in the title and abstract
@@ -150,7 +151,8 @@ class PublicationDB(object):
         print('')
 
         # Prompt the user to classify the paper by mission and science
-        print('=> Kepler [1], K2 [2], unrelated [3], or skip [any key]? ', end='')
+        print("=> Kepler [1], K2 [2], unrelated [3], or skip [any key]? ",
+              end="")
         prompt = input()
         if prompt == "1":
             mission = "kepler"
@@ -252,7 +254,8 @@ class PublicationDB(object):
         templatedir = os.path.join(PACKAGEDIR, 'templates')
         env = jinja2.Environment(loader=jinja2.FileSystemLoader(templatedir))
         template = env.get_template('template.md')
-        markdown = template.render(title=title, save_as=save_as, articles=articles)
+        markdown = template.render(title=title, save_as=save_as,
+                                   articles=articles)
         if sys.version_info >= (3, 0):
             return markdown  # Python 3
         else:
@@ -276,8 +279,10 @@ class PublicationDB(object):
     def plot(self):
         """Saves beautiful plot of the database."""
         for extension in ['pdf', 'png']:
-            plot.plot_by_year(self, "kpub-publication-rate.{}".format(extension))
-            plot.plot_science_piechart(self, "kpub-piechart.{}".format(extension))
+            plot.plot_by_year(self,
+                              "kpub-publication-rate.{}".format(extension))
+            plot.plot_science_piechart(self,
+                                       "kpub-piechart.{}".format(extension))
 
     def get_metrics(self):
         """Returns a dictionary of overall publication statistics.
@@ -383,7 +388,8 @@ class PublicationDB(object):
                exclude=['keplerian', 'johannes', 'k<sub>2</sub>',
                         "kepler equation", "kepler's equation", "xmm-newton",
                         "kepler's law", "kepler's third law", "kepler problem",
-                        "kepler crater", "kepler's supernova", "kepler's snr"]):
+                        "kepler crater", "kepler's supernova", "kepler's snr"]
+               ):
         """Query ADS for new publications.
 
         Parameters
@@ -413,7 +419,7 @@ class PublicationDB(object):
                                    pubdate:"{}"
                                    database:"{}"
                                 """.format(month, database),
-                              fl=FIELDS,  
+                              fl=FIELDS,
                               rows=9999999999)
         articles = list(qry)
         for idx, article in enumerate(articles):
@@ -423,7 +429,8 @@ class PublicationDB(object):
             self.add_interactively(article, statusmsg=statusmsg)
 
         # Then search for keywords in the title and abstracts
-        log.info("Querying ADS for titles and abstracts (month={}).".format(month))
+        log.info("Querying ADS for titles and abstracts "
+                 "(month={}).".format(month))
         qry = ads.SearchQuery(q="""(
                                     abs:"Kepler"
                                     OR abs:"K2"
@@ -527,7 +534,7 @@ def kpub(args=None):
                                  group_by_month=bymonth,
                                  mission=mission,
                                  title="{} publications{}".format(mission.capitalize(), title_suffix))
-                
+
         # Finally, produce an overview page
         templatedir = os.path.join(PACKAGEDIR, 'templates')
         env = jinja2.Environment(loader=jinja2.FileSystemLoader(templatedir))
@@ -541,7 +548,7 @@ def kpub(args=None):
         log.info('Writing {}'.format(filename))
         f = open(filename, 'w')
         f.write(markdown)
-        f.close()        
+        f.close()
 
     else:
         if args.exoplanets and not args.astrophysics:
@@ -557,7 +564,7 @@ def kpub(args=None):
             mission = "k2"
         else:
             mission = None
-        
+
         output = db.to_markdown(group_by_month=args.month,
                                 mission=mission,
                                 science=science)
