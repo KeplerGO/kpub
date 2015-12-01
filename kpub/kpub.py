@@ -540,7 +540,7 @@ def kpub(args=None):
         env = jinja2.Environment(loader=jinja2.FileSystemLoader(templatedir))
         template = env.get_template('template-overview.md')
         markdown = template.render(metrics=db.get_metrics(),
-                                   most_cited=db.get_most_cited(20),
+                                   most_cited=db.get_most_cited(top=20),
                                    most_active_first_authors=db.get_most_active_first_authors(),
                                    now=datetime.datetime.now())
         # most_read=db.get_most_read(20),
