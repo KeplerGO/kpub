@@ -226,7 +226,7 @@ class PublicationDB(object):
         if science is not None:
             where += " AND science = '{}' ".format(science)
 
-        cur = self.con.execute("SELECT year, month, json, bibcode "
+        cur = self.con.execute("SELECT year, month, metrics, bibcode "
                                "FROM pubs "
                                "WHERE {} "
                                "ORDER BY date DESC; ".format(where))
@@ -326,10 +326,10 @@ class PublicationDB(object):
             metrics[frac+"_fraction"] = metrics[frac+"_count"] / metrics["publication_count"]
         return metrics
 
-    def get_most_cited(self, top=10):
+    def get_most_cited(self, mission=None, science=None, top=10):
         """Returns the most-cited publications."""
         bibcodes, citations = [], []
-        articles = self.query()
+        articles = self.query(mission=mission, science=science)
         for article in articles:
             api_response = article[2]
             js = json.loads(api_response)
@@ -338,10 +338,10 @@ class PublicationDB(object):
         idx_top = np.argsort(citations)[::-1][0:top]
         return [json.loads(articles[idx][2]) for idx in idx_top]
 
-    def get_most_read(self, top=10):
+    def get_most_read(self, mission=None, science=None, top=10):
         """Returns the most-cited publications."""
         bibcodes, citations = [], []
-        articles = self.query()
+        articles = self.query(mission=mission, science=science)
         for article in articles:
             api_response = article[2]
             js = json.loads(api_response)
