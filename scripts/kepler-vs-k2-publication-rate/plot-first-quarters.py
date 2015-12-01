@@ -63,7 +63,7 @@ def quarterly_count(db, mission="k2", start="2015-01", stop="2015-04"):
 
 if __name__ == "__main__":
     barwidth = 0.75
-    output_fn = "kpub-first-quarters.png"
+    output_fn = "kpub-first-quarters.pdf"
     dpi = 200
     ymax = 35
     yticks = [0, 10, 20, 30]
