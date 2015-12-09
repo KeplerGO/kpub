@@ -543,6 +543,10 @@ def kpub(args=None):
                                    most_cited=db.get_most_cited(top=20),
                                    most_active_first_authors=db.get_most_active_first_authors(),
                                    now=datetime.datetime.now())
+        if sys.version_info >= (3, 0):
+            return markdown  # Python 3
+        else:
+            return markdown.encode("utf-8")  # Legacy Python
         # most_read=db.get_most_read(20),
         filename = 'publications.md'
         log.info('Writing {}'.format(filename))
