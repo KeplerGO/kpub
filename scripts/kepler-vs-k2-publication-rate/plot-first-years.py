@@ -63,7 +63,6 @@ def pubcount(db, mission="k2", start="2015-01", stop="2015-04"):
 
 if __name__ == "__main__":
     barwidth = 0.75
-    output_fn = "kpub-first-years.pdf"
     dpi = 200
     ymax = 330
     yticks = list(range(0, 301, 100))
@@ -151,6 +150,13 @@ if __name__ == "__main__":
     ax.grid(axis='y')
 
     #plt.tight_layout(h_pad=1.5)
+    output_fn = "kpub-first-years.pdf"
     log.info("Writing {}".format(output_fn))
     plt.savefig(output_fn, dpi=dpi)
+    
+    output_fn = "kpub-first-years.png"
+    log.info("Writing {}".format(output_fn))
+    plt.savefig(output_fn, dpi=dpi)
+
     plt.close()
+
