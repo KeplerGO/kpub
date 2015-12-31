@@ -53,7 +53,8 @@ def plot_by_year(db,
                  output_fn='kpub-publication-rate.pdf',
                  first_year=2009,
                  barwidth=0.75,
-                 dpi=100):
+                 dpi=100,
+                 extrapolate=True):
     """Plots a bar chart showing the number of publications per year.
 
     Parameters
@@ -72,6 +73,9 @@ def plot_by_year(db,
 
     dpi : float
         Output resolution.
+
+    extrapolate : boolean
+        If `True`, extrapolate the publication count in the current year.
     """
     current_year = datetime.datetime.now().year
 
@@ -106,17 +110,18 @@ def plot_by_year(db,
             facecolor="#e74c3c",
             width=barwidth)
     # Also plot the extrapolated precition for the current year
-    now = datetime.datetime.now()
-    fraction_of_year_passed = float(now.strftime("%-j")) / 365.2425
-    current_total = (counts['kepler'][current_year] +
-                     counts['k2'][current_year])
-    expected = (1/fraction_of_year_passed - 1) * current_total
-    plt.bar(current_year - 0.5*barwidth,
-            expected,
-            bottom=current_total,
-            label='Extrapolation',
-            facecolor='#95a5a6',
-            width=barwidth)
+    if extrapolate:
+        now = datetime.datetime.now()
+        fraction_of_year_passed = float(now.strftime("%-j")) / 365.2425
+        current_total = (counts['kepler'][current_year] +
+                         counts['k2'][current_year])
+        expected = (1/fraction_of_year_passed - 1) * current_total
+        plt.bar(current_year - 0.5*barwidth,
+                expected,
+                bottom=current_total,
+                label='Extrapolation',
+                facecolor='#95a5a6',
+                width=barwidth)
 
     # Aesthetics
     plt.ylabel("Publications per year")
