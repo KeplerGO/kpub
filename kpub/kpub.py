@@ -453,7 +453,7 @@ class PublicationDB(object):
 
         for idx, article in enumerate(articles):
             # Ignore articles without abstract
-            if not hasattr(article, 'abstract'):
+            if not hasattr(article, 'abstract') or article.abstract is None:
                 continue
             abstract_lower = article.abstract.lower()
 
