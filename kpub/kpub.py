@@ -37,7 +37,8 @@ FIELDS = ['date', 'pub', 'id', 'volume', 'links_data', 'citation', 'doi',
           'pubdate', 'reader', 'doctype', 'title', 'pub_raw', 'property',
           'author', 'email', 'orcid', 'keyword', 'author_norm',
           'cite_read_boost', 'database', 'classic_factor', 'ack', 'page',
-          'first_author', 'read_count', 'indexstamp', 'issue', 'keyword_facet']
+          'first_author', 'read_count', 'indexstamp', 'issue', 'keyword_facet',
+          'aff']
 
 
 class Highlight:
