@@ -1,7 +1,20 @@
-Title: Publication database
+Title: Publications
 Save_as: publications.html
 
 [TOC]
+
+We request that scientific publications using data obtained from the Kepler
+or K2 projects include one of the following acknowledgments:
+
+*This paper includes data collected by the Kepler mission. Funding for
+the Kepler mission is provided by the NASA Science Mission
+directorate.*
+
+*This paper includes data collected by the K2 mission. Funding for
+the K2 mission is provided by the NASA Science Mission
+directorate.*
+
+## Publication database
 
 The Guest Observer office curates a list of scientific publications
 pertaining to Kepler and K2.
@@ -32,7 +45,7 @@ Last update: {{ now.strftime('%d %b %Y') }}.
 The graph below shows the number of publications as a function
 of year and mission.
 The publication count for Kepler is {{ metrics["kepler_count"] }},
-that of K2 is {{ metrics["k2_count"] }}.
+while that of K2 is {{ metrics["k2_count"] }}.
 
 ![Publication rate by mission and year]({filename}/images/kpub/kpub-publication-rate.png)
 
