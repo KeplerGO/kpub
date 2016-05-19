@@ -39,7 +39,7 @@ For example output, see the `data/output/` sub-directory in this repository.
 
 To install the latest version from source:
 ```
-git clone https://github.com/barentsen/kpub.git
+git clone https://github.com/KeplerGO/kpub.git
 cd kpub
 python setup.py install
 ```
@@ -55,6 +55,17 @@ ln -s /path/to/git/repo/data/kpub.db ~/.kpub.db
 The `kpub-add`and `kpub-update` tools that come with this package require
 an api key from NASA ADS labs to retrieve publication meta-data.
 You need to follow the installation instructions of the [ads client](https://github.com/andycasey/ads) by @andycasey to make this work.
+
+## Usage
+
+`kpub` adds a number of tools to the command line (described below).
+
+There is a `Makefile` which makes your life easy if you work
+for the GO office and are updating the database. 
+Simply type:
+* `make update` to search for new publications;
+* `make push` to push the updated database to the git repo;
+* `make refresh` to export and import all publications, this is slow and necessary only if you want to remove duplicates and fetch fresh citation statistics.
 
 ## Command-line tools
 
