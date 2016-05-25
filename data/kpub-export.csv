@@ -2125,6 +2125,7 @@
 2016AJ....151..101A,kepler,astrophysics
 2016AJ....151..112D,k2,astrophysics
 2016AJ....151..117P,k2,astrophysics
+2016AJ....151..139M,kepler,astrophysics
 2016AN....337..235S,unrelated,
 2016AcASn..57....9Y,kepler,astrophysics
 2016Ap&SS.361...17B,kepler,exoplanets
@@ -2189,7 +2190,9 @@
 2016ApJ...822...97H,unrelated,
 2016ApJ...822L...6M,kepler,astrophysics
 2016ApJ...822L..34S,kepler,astrophysics
+2016ApJ...823...16B,k2,astrophysics
 2016ApJ...823L...7M,kepler,exoplanets
+2016ApJ...823L...9A,kepler,astrophysics
 2016ApJS..222...14V,k2,exoplanets
 2016ApJS..224....2H,k2,astrophysics
 2016AsBio..16..259H,k2,exoplanets
@@ -2272,6 +2275,7 @@
 2016PASA...33...11S,kepler,astrophysics
 2016PASA...33...16Y,kepler,astrophysics
 2016PASJ..tmp...26M,kepler,astrophysics
+2016PhDT.........9H,unrelated,
 2016PhRvD..93f4077K,unrelated,
 2016RAA....16c...9R,kepler,astrophysics
 2016RPPh...79c6901B,kepler,exoplanets
@@ -2387,3 +2391,4 @@
 2016arXiv160503985B,k2,astrophysics
 2016arXiv160504291O,k2,exoplanets
 2016arXiv160504443G,kepler,astrophysics
+2016arXiv160505729C,kepler,exoplanets
