@@ -1,4 +1,5 @@
 update:
+	git pull
 	kpub-update
 
 push:
