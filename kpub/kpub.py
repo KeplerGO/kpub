@@ -406,6 +406,14 @@ class PublicationDB(object):
             log.error("This action requires the ADS key to be setup.")
             return
 
+        print(Highlight.YELLOW +
+              "Reminder: did you `git pull` kpub before running "
+              "this command? [y/n] " +
+              Highlight.END,
+              end='')
+        if input() == 'n':
+            return
+
         if month is None:
             month = datetime.datetime.now().strftime("%Y-%m")
 
