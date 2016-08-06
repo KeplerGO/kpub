@@ -136,7 +136,8 @@ class PublicationDB(object):
         for word in colors:
             pattern = re.compile(word, re.IGNORECASE)
             title = pattern.sub(colors[word] + word + Highlight.END, title)
-            abstract = pattern.sub(colors[word]+word+Highlight.END, abstract)
+            if abstract is not None:
+                abstract = pattern.sub(colors[word]+word+Highlight.END, abstract)
 
         # Print paper information to stdout
         print(chr(27) + "[2J")  # Clear screen
