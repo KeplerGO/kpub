@@ -305,7 +305,7 @@ class PublicationDB(object):
                    "refereed_count": 0,
                    "citation_count": 0
                    }
-        authors = []
+        first_authors, authors = [], []
         for article in self.query():
             api_response = article[2]
             js = json.loads(api_response)
@@ -315,6 +315,7 @@ class PublicationDB(object):
                 metrics["{}_count".format(js["science"])] += 1
             except KeyError:
                 log.warning("{}: no science category".format(js["bibcode"]))
+            first_authors.append(js["first_author_norm"])
             authors.extend(js["author_norm"])
             if "REFEREED" in js["property"]:
                 metrics["refereed_count"] += 1
@@ -322,6 +323,7 @@ class PublicationDB(object):
                 metrics["citation_count"] += js["citation_count"]
             except KeyError:
                 log.warning("{}: no citation_count".format(js["bibcode"]))
+        metrics["first_author_count"] = np.unique(first_authors).size
         metrics["author_count"] = np.unique(authors).size
         # Also compute fractions
         for frac in ["kepler", "k2", "exoplanets", "astrophysics"]:
