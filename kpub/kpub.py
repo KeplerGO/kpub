@@ -327,7 +327,7 @@ class PublicationDB(object):
         metrics["author_count"] = np.unique(authors).size
         # Also compute fractions
         for frac in ["kepler", "k2", "exoplanets", "astrophysics"]:
-            metrics[frac+"_fraction"] = np.float16(metrics[frac+"_count"] / metrics["publication_count"])
+            metrics[frac+"_fraction"] = metrics[frac+"_count"] / metrics["publication_count"]
         return metrics
 
     def get_most_cited(self, mission=None, science=None, top=10):
