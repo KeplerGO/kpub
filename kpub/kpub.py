@@ -303,6 +303,8 @@ class PublicationDB(object):
                    "exoplanets_count": 0,
                    "astrophysics_count": 0,
                    "refereed_count": 0,
+                   "kepler_refereed_count": 0,
+                   "k2_refereed_count": 0,
                    "citation_count": 0
                    }
         first_authors, authors = [], []
@@ -319,6 +321,7 @@ class PublicationDB(object):
             authors.extend(js["author_norm"])
             if "REFEREED" in js["property"]:
                 metrics["refereed_count"] += 1
+                metrics["{}_refereed_count".format(js["mission"])] += 1
             try:
                 metrics["citation_count"] += js["citation_count"]
             except KeyError:

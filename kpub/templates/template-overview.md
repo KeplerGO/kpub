@@ -44,8 +44,9 @@ Last update: {{ now.strftime('%d %b %Y') }}.
 
 The graph below shows the number of publications as a function
 of year and mission.
-The publication count for Kepler is {{ metrics["kepler_count"] }},
+The publication count for Kepler is {{ metrics["kepler_count"] }}
 while that of K2 is {{ metrics["k2_count"] }}.
+The number of refereed papers is {{ metrics["kepler_refereed_count"]}} for Kepler and {{ metrics["k2_refereed_count"] }} for K2.
 
 ![Publication rate by mission and year]({filename}/images/kpub/kpub-publication-rate.png)
 
