@@ -308,6 +308,7 @@ class PublicationDB(object):
                    "citation_count": 0
                    }
         first_authors, authors = [], []
+        k2_authors, kepler_authors = [], []
         for article in self.query():
             api_response = article[2]
             js = json.loads(api_response)
@@ -319,6 +320,10 @@ class PublicationDB(object):
                 log.warning("{}: no science category".format(js["bibcode"]))
             first_authors.append(js["first_author_norm"])
             authors.extend(js["author_norm"])
+            if js["mission"] == 'k2':
+                k2_authors.extend(js["author_norm"])
+            else:
+                kepler_authors.extend(js["author_norm"])
             if "REFEREED" in js["property"]:
                 metrics["refereed_count"] += 1
                 metrics["{}_refereed_count".format(js["mission"])] += 1
@@ -328,6 +333,8 @@ class PublicationDB(object):
                 log.warning("{}: no citation_count".format(js["bibcode"]))
         metrics["first_author_count"] = np.unique(first_authors).size
         metrics["author_count"] = np.unique(authors).size
+        metrics["kepler_author_count"] = np.unique(kepler_authors).size
+        metrics["k2_author_count"] = np.unique(k2_authors).size
         # Also compute fractions
         for frac in ["kepler", "k2", "exoplanets", "astrophysics"]:
             metrics[frac+"_fraction"] = metrics[frac+"_count"] / metrics["publication_count"]
