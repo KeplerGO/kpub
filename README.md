@@ -1,4 +1,4 @@
-# kpub: Kepler publication database
+# kpub: Kepler/K2 publication database
 
 ***A database of scientific publications related to NASA's Kepler/K2 mission.***
 
