@@ -283,6 +283,9 @@ class PublicationDB(object):
         for extension in ['pdf', 'png']:
             plot.plot_by_year(self,
                               "kpub-publication-rate.{}".format(extension))
+            plot.plot_by_year(self,
+                              "kpub-publication-rate-without-extrapolation.{}".format(extension),
+                              extrapolate=False)
             plot.plot_science_piechart(self,
                                        "kpub-piechart.{}".format(extension))
 
