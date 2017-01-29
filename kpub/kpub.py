@@ -9,6 +9,7 @@ import sys
 import json
 import datetime
 import argparse
+import collections
 import sqlite3 as sql
 import numpy as np
 
@@ -243,7 +244,6 @@ class PublicationDB(object):
         else:
             group_idx = 0  # by year
 
-        import collections
         articles = collections.OrderedDict({})
         for row in self.query(**kwargs):
             group = row[group_idx]
@@ -697,6 +697,8 @@ def kpub_export(args=None):
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
                              "Defaults to ~/.kpub.db.")
+    parser.add_argument('--xls', action='store_true',
+                        help='export to Excel (writes kepler-publications.xls)')
     args = parser.parse_args(args)
 
     db = PublicationDB(args.f)
@@ -704,6 +706,35 @@ def kpub_export(args=None):
                          "FROM pubs ORDER BY bibcode;")
     for row in cur.fetchall():
         print('{0},{1},{2}'.format(row[0], row[1], row[2]))
+
+    if args.xls:
+        spreadsheet = []
+        cur = db.con.execute("SELECT bibcode, year, month, date, mission, science, metrics "
+                             "FROM pubs WHERE mission != 'unrelated' ORDER BY bibcode;")
+        for row in cur.fetchall():
+            metrics = json.loads(row[6])
+            if 'REFEREED' in metrics['property']:
+                refereed = 'REFEREED'
+            elif 'NOT REFEREED' in metrics['property']:
+                refereed = 'NOT REFEREED'
+            else:
+                refereed = ''
+            myrow = collections.OrderedDict([
+                        ('bibcode', row[0]),
+                        ('year', row[1]),
+                        ('date', row[3]),
+                        ('mission', row[4]),
+                        ('science', row[5]),
+                        ('refereed', refereed),
+                        ('citation_count', metrics['citation_count']),
+                        ('first_author_norm', metrics['first_author_norm']),
+                        ('title', metrics['title'][0]),
+                        ('doi', metrics['doi']),
+                        ('property', metrics['property'])])
+            spreadsheet.append(myrow)
+
+        import pandas as pd
+        pd.DataFrame(spreadsheet).to_excel('kepler-publications.xls', index=False)
 
 
 if __name__ == '__main__':
