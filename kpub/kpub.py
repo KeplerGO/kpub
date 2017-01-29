@@ -734,7 +734,9 @@ def kpub_export(args=None):
             spreadsheet.append(myrow)
 
         import pandas as pd
-        pd.DataFrame(spreadsheet).to_excel('kepler-publications.xls', index=False)
+        output_fn = 'kepler-publications.xls'
+        print('Writing {}'.format(output_fn))
+        pd.DataFrame(spreadsheet).to_excel(output_fn, index=False)
 
 
 if __name__ == '__main__':
