@@ -76,7 +76,8 @@ After installation, this package adds the following command-line tools to your p
 * `kpub-delete` deletes a publication using its ADS bibcode;
 * `kpub-import` imports bibcodes from a csv file;
 * `kpub-export` exports bibcodes to a csv file;
-* `kpub-plot` creates a visualization of the database.
+* `kpub-plot` creates a visualization of the database;
+* `kpub-spreadsheet` exports the publications to an Excel spreadsheet.
 
 Listed below are the usage instructions for each command:
 
@@ -170,6 +171,19 @@ $ kpub-export --help
 usage: kpub-export [-h] [-f dbfile]
 
 Export the Kepler/K2 publication list in CSV format.
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -f dbfile   Location of the Kepler/K2 publication list db. Defaults to
+              ~/.kpub.db.
+```
+
+*kpub-spreadsheet*
+```
+$ kpub-spreadsheet --help
+usage: kpub-spreadsheet [-h] [-f dbfile]
+
+Export the Kepler/K2 publication list in XLS format.
 
 optional arguments:
   -h, --help  show this help message and exit

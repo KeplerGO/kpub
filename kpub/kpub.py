@@ -697,8 +697,6 @@ def kpub_export(args=None):
                         type=str, default=DEFAULT_DB,
                         help="Location of the Kepler/K2 publication list db. "
                              "Defaults to ~/.kpub.db.")
-    parser.add_argument('--xls', action='store_true',
-                        help='export to Excel (writes kepler-publications.xls)')
     args = parser.parse_args(args)
 
     db = PublicationDB(args.f)
@@ -707,36 +705,49 @@ def kpub_export(args=None):
     for row in cur.fetchall():
         print('{0},{1},{2}'.format(row[0], row[1], row[2]))
 
-    if args.xls:
-        spreadsheet = []
-        cur = db.con.execute("SELECT bibcode, year, month, date, mission, science, metrics "
-                             "FROM pubs WHERE mission != 'unrelated' ORDER BY bibcode;")
-        for row in cur.fetchall():
-            metrics = json.loads(row[6])
-            if 'REFEREED' in metrics['property']:
-                refereed = 'REFEREED'
-            elif 'NOT REFEREED' in metrics['property']:
-                refereed = 'NOT REFEREED'
-            else:
-                refereed = ''
-            myrow = collections.OrderedDict([
-                        ('bibcode', row[0]),
-                        ('year', row[1]),
-                        ('date', row[3]),
-                        ('mission', row[4]),
-                        ('science', row[5]),
-                        ('refereed', refereed),
-                        ('citation_count', metrics['citation_count']),
-                        ('first_author_norm', metrics['first_author_norm']),
-                        ('title', metrics['title'][0]),
-                        ('doi', metrics['doi']),
-                        ('property', metrics['property'])])
-            spreadsheet.append(myrow)
 
+def kpub_spreadsheet(args=None):
+    """Export the publication database to an Excel spreadsheet."""
+    try:
         import pandas as pd
-        output_fn = 'kepler-publications.xls'
-        print('Writing {}'.format(output_fn))
-        pd.DataFrame(spreadsheet).to_excel(output_fn, index=False)
+    except ImportError:
+        print('ERROR: pandas needs to be installed for this feature.')
+
+    parser = argparse.ArgumentParser(
+        description="Export the Kepler/K2 publication list in XLS format.")
+    parser.add_argument('-f', metavar='dbfile',
+                        type=str, default=DEFAULT_DB,
+                        help="Location of the Kepler/K2 publication list db. "
+                             "Defaults to ~/.kpub.db.")
+    args = parser.parse_args(args)
+
+    db = PublicationDB(args.f)
+    spreadsheet = []
+    cur = db.con.execute("SELECT bibcode, year, month, date, mission, science, metrics "
+                         "FROM pubs WHERE mission != 'unrelated' ORDER BY bibcode;")
+    for row in cur.fetchall():
+        metrics = json.loads(row[6])
+        if 'REFEREED' in metrics['property']:
+            refereed = 'REFEREED'
+        elif 'NOT REFEREED' in metrics['property']:
+            refereed = 'NOT REFEREED'
+        else:
+            refereed = ''
+        myrow = collections.OrderedDict([
+                    ('bibcode', row[0]),
+                    ('year', row[1]),
+                    ('date', row[3]),
+                    ('mission', row[4]),
+                    ('science', row[5]),
+                    ('refereed', refereed),
+                    ('citation_count', metrics['citation_count']),
+                    ('first_author_norm', metrics['first_author_norm']),
+                    ('title', metrics['title'][0])])
+        spreadsheet.append(myrow)
+
+    output_fn = 'kepler-publications.xls'
+    print('Writing {}'.format(output_fn))
+    pd.DataFrame(spreadsheet).to_excel(output_fn, index=False)
 
 
 if __name__ == '__main__':
