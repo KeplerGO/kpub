@@ -208,8 +208,8 @@ class PublicationDB(object):
         self.con.commit()
 
     def __contains__(self, article):
-        count = self.con.execute("SELECT COUNT(*) FROM pubs WHERE bibcode = ?;",
-                                 [article.bibcode]).fetchone()[0]
+        count = self.con.execute("SELECT COUNT(*) FROM pubs WHERE id = ? OR bibcode = ?;",
+                                 [article.id, article.bibcode]).fetchone()[0]
         return bool(count)
 
     def query(self, mission=None, science=None):
