@@ -23,7 +23,7 @@ entry_points = {'console_scripts': [
 ]}
 
 setup(name='kpub',
-      version='1.1.0',
+      version='1.2.0dev',
       description="A simple tool to keep track of the publications related "
                   "to NASA's Kepler/K2 mission.",
       long_description=long_description,
