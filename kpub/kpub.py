@@ -125,8 +125,10 @@ class PublicationDB(object):
         colors = {'KEPLER': Highlight.BLUE,
                   'KIC': Highlight.BLUE,
                   'KOI': Highlight.BLUE,
+                  '8462852': Highlight.BLUE,  # KIC ID of Tabby's star
                   'K2': Highlight.RED,
                   'EPIC': Highlight.RED,
+                  '1145+017': Highlight.RED,  # Disintegrating WD in K2
                   'PLANET': Highlight.YELLOW}
         title = article.title[0]
         try:
@@ -462,8 +464,12 @@ class PublicationDB(object):
                                     OR abs:"KIC"
                                     OR abs:"EPIC"
                                     OR abs:"KOI"
+                                    OR abs:"8462852"
+                                    OR abs:"1145+017"
                                     OR title:"Kepler"
                                     OR title:"K2"
+                                    OR title:"8462852"
+                                    OR title:"1145+017"
                                     OR full:"Kepler photometry"
                                     OR full:"K2 photometry"
                                     OR full:"Kepler lightcurve"
