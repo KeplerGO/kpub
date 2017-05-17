@@ -345,6 +345,11 @@ class PublicationDB(object):
             metrics[frac+"_fraction"] = metrics[frac+"_count"] / metrics["publication_count"]
         return metrics
 
+    def get_all(self, mission=None, science=None):
+        """Returns all publications."""
+        articles = self.query(mission=mission, science=science)
+        return [json.loads(art[2]) for art in articles]
+
     def get_most_cited(self, mission=None, science=None, top=10):
         """Returns the most-cited publications."""
         bibcodes, citations = [], []
