@@ -471,6 +471,8 @@ class PublicationDB(object):
                                     OR abs:"KOI"
                                     OR abs:"8462852"
                                     OR abs:"1145+017"
+                                    OR abs:"NGC 6791"
+                                    OR abs:"NGC 6819"
                                     OR title:"Kepler"
                                     OR title:"K2"
                                     OR title:"8462852"
