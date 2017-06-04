@@ -24,7 +24,7 @@ from six.moves import input  # needed to support Python 2
 from astropy import log
 from astropy.utils.console import ProgressBar
 
-from . import plot, PACKAGEDIR
+from . import plot, PACKAGEDIR, MISSIONS, SCIENCES
 
 # Where is the default location of the SQLite database?
 DEFAULT_DB = os.path.expanduser("~/.kpub.db")
@@ -408,6 +408,33 @@ class PublicationDB(object):
         idx_top = np.argsort(paper_count)[::-1][:top]
         return names[idx_top], paper_count[idx_top]
 
+    def count_by_year(self, year_begin=2009, year_end=datetime.datetime.now().year):
+        """Returns a dict containing the number of publications per year per mission.
+
+        Parameters
+        ----------
+        year_begin : int
+            Year to start counting. (default: 2009)
+
+        year_end : int
+            Year to end counting. (default: current year)
+        """
+        # Initialize a dictionary to contain the data to plot
+        result = {}
+        for mission in MISSIONS:
+            result[mission] = {}
+            for year in range(year_begin, year_end + 1):
+                result[mission][year] = 0
+            cur = self.con.execute("SELECT year, COUNT(*) FROM pubs "
+                                   "WHERE mission = ? "
+                                   "AND year >= '2009' "
+                                   "GROUP BY year;",
+                                   [mission])
+            rows = list(cur.fetchall())
+            for row in rows:
+                result[mission][int(row[0])] = row[1]
+        return result
+
     def update(self, month=None,
                exclude=['keplerian', 'johannes', 'k<sub>2</sub>',
                         "kepler equation", "kepler's equation", "xmm-newton",
@@ -560,7 +587,7 @@ def kpub(args=None):
             db.save_markdown(output_fn,
                              group_by_month=bymonth,
                              title="Kepler/K2 publications{}".format(title_suffix))
-            for science in ['exoplanets', 'astrophysics']:
+            for science in SCIENCES:
                 output_fn = 'kpub-{}{}.md'.format(science, suffix)
                 db.save_markdown(output_fn,
                                  group_by_month=bymonth,

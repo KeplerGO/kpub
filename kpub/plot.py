@@ -7,6 +7,8 @@ from matplotlib import pyplot as pl
 import matplotlib.patheffects as path_effects
 import matplotlib as mpl
 
+from . import SCIENCES
+
 # Configure the aesthetics
 mpl.rcParams["figure.figsize"] = (8.485, 6)
 mpl.rcParams["interactive"] = False
@@ -43,10 +45,6 @@ mpl.rcParams["grid.linestyle"] = "-"
 mpl.rcParams["grid.linewidth"] = 1
 
 
-MISSIONS = ['kepler', 'k2']
-SCIENCES = ['exoplanets', 'astrophysics']
-
-
 def plot_by_year(db,
                  output_fn='kpub-publication-rate.pdf',
                  first_year=2009,
@@ -75,23 +73,10 @@ def plot_by_year(db,
     extrapolate : boolean
         If `True`, extrapolate the publication count in the current year.
     """
+
+    # Obtain the dictionary which provides the annual counts
     current_year = datetime.datetime.now().year
-
-    # Initialize a dictionary to contain the data to plot
-    counts = {}
-    for mission in MISSIONS:
-        counts[mission] = {}
-        for year in range(first_year, current_year + 1):
-            counts[mission][year] = 0
-
-        cur = db.con.execute("SELECT year, COUNT(*) FROM pubs "
-                             "WHERE mission = ? "
-                             "AND year >= '2009' "
-                             "GROUP BY year;",
-                             [mission])
-        rows = list(cur.fetchall())
-        for row in rows:
-            counts[mission][int(row[0])] = row[1]
+    counts = db.count_by_year(year_begin=first_year, year_end=current_year)
 
     # Now make the actual plot
     fig = pl.figure()
