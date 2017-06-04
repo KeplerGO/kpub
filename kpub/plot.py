@@ -1,11 +1,9 @@
 """Creates beautiful visualizations of the publication database."""
 import datetime
-import sqlite3 as sql
-
 import numpy as np
 from astropy import log
 
-from matplotlib import pyplot as plt
+from matplotlib import pyplot as pl
 import matplotlib.patheffects as path_effects
 import matplotlib as mpl
 
@@ -96,19 +94,19 @@ def plot_by_year(db,
             counts[mission][int(row[0])] = row[1]
 
     # Now make the actual plot
-    fig = plt.figure()
+    fig = pl.figure()
     ax = fig.add_subplot(111)
-    plt.bar(np.array(list(counts['kepler'].keys())),
-            counts['kepler'].values(),
-            label='Kepler',
-            facecolor="#3498db",
-            width=barwidth)
-    plt.bar(np.array(list(counts['k2'].keys())),
-            counts['k2'].values(),
-            bottom=counts['kepler'].values(),
-            label='K2',
-            facecolor="#e74c3c",
-            width=barwidth)
+    pl.bar(np.array(list(counts['kepler'].keys())),
+           counts['kepler'].values(),
+           label='Kepler',
+           facecolor="#3498db",
+           width=barwidth)
+    pl.bar(np.array(list(counts['k2'].keys())),
+           counts['k2'].values(),
+           bottom=counts['kepler'].values(),
+           label='K2',
+           facecolor="#e74c3c",
+           width=barwidth)
     # Also plot the extrapolated prediction for the current year
     if extrapolate:
         now = datetime.datetime.now()
@@ -116,24 +114,24 @@ def plot_by_year(db,
         current_total = (counts['kepler'][current_year] +
                          counts['k2'][current_year])
         expected = (1/fraction_of_year_passed - 1) * current_total
-        plt.bar(current_year,
-                expected,
-                bottom=current_total,
-                label='Extrapolation',
-                facecolor='#95a5a6',
-                width=barwidth)
+        pl.bar(current_year,
+               expected,
+               bottom=current_total,
+               label='Extrapolation',
+               facecolor='#95a5a6',
+               width=barwidth)
 
     # Aesthetics
-    plt.ylabel("Publications per year")
+    pl.ylabel("Publications per year")
     ax.get_xaxis().get_major_formatter().set_useOffset(False)
-    plt.xticks(range(first_year - 1, current_year + 1))
-    plt.xlim([first_year - 0.75*barwidth, current_year + 0.75*barwidth])
-    plt.legend(bbox_to_anchor=(0.1, 1., 1., 0.),
-               loc=3,
-               ncol=3,
-               borderaxespad=0.,
-               handlelength=0.8,
-               frameon=False)
+    pl.xticks(range(first_year - 1, current_year + 1))
+    pl.xlim([first_year - 0.75*barwidth, current_year + 0.75*barwidth])
+    pl.legend(bbox_to_anchor=(0.1, 1., 1., 0.),
+              loc=3,
+              ncol=3,
+              borderaxespad=0.,
+              handlelength=0.8,
+              frameon=False)
     # Disable spines
     ax.spines["left"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -144,10 +142,10 @@ def plot_by_year(db,
     ax.get_yaxis().tick_left()
     # Only show horizontal grid lines
     ax.grid(axis='y')
-    plt.tight_layout(rect=(0, 0, 1, 0.95), h_pad=1.5)
+    pl.tight_layout(rect=(0, 0, 1, 0.95), h_pad=1.5)
     log.info("Writing {}".format(output_fn))
-    plt.savefig(output_fn, dpi=dpi)
-    plt.close()
+    pl.savefig(output_fn, dpi=dpi)
+    pl.close()
 
 
 def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=100):
@@ -167,15 +165,15 @@ def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=100):
     count = []
     for science in SCIENCES:
         cur = db.con.execute("SELECT COUNT(*) FROM pubs "
-                          "WHERE science = ?;", [science])
+                             "WHERE science = ?;", [science])
         rows = list(cur.fetchall())
         count.append(rows[0][0])
 
     # Plot the pie chart
-    patches, texts, autotexts = plt.pie(count,
-                                        colors=['#f39c12', '#18bc9c'],
-                                        autopct="%.0f%%",
-                                        startangle=90)
+    patches, texts, autotexts = pl.pie(count,
+                                       colors=['#f39c12', '#18bc9c'],
+                                       autopct="%.0f%%",
+                                       startangle=90)
     # Now take care of the aesthetics
     for t in autotexts:
         t.set_fontsize(32)
@@ -183,21 +181,21 @@ def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=100):
         t.set_path_effects([path_effects.Stroke(linewidth=2,
                                                 foreground='#333333'),
                             path_effects.Normal()])
-    plt.legend(patches,
-               labels=["Exoplanets", "Astrophysics"],
-               fontsize=22,
-               bbox_to_anchor=(0.2, 1.05, 1., 0.),
-               loc=3,
-               ncol=2,
-               borderaxespad=0.,
-               handlelength=0.8,
-               frameon=False)
+    pl.legend(patches,
+              labels=["Exoplanets", "Astrophysics"],
+              fontsize=22,
+              bbox_to_anchor=(0.2, 1.05, 1., 0.),
+              loc=3,
+              ncol=2,
+              borderaxespad=0.,
+              handlelength=0.8,
+              frameon=False)
 
-    plt.axis('equal')  # required to ensure pie chart has equal aspect ratio
-    plt.tight_layout(rect=(0, 0, 1, 0.85), h_pad=1.5)
+    pl.axis('equal')  # required to ensure pie chart has equal aspect ratio
+    pl.tight_layout(rect=(0, 0, 1, 0.85), h_pad=1.5)
     log.info("Writing {}".format(output_fn))
-    plt.savefig(output_fn, dpi=dpi)
-    plt.close()
+    pl.savefig(output_fn, dpi=dpi)
+    pl.close()
 
 
 if __name__ == "__main__":
