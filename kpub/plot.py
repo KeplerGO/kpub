@@ -87,10 +87,10 @@ def plot_by_year(db,
             counts[mission][year] = 0
 
         cur = db.con.execute("SELECT year, COUNT(*) FROM pubs "
-                          "WHERE mission = ? "
-                          "AND year >= '2009' "
-                          "GROUP BY year;",
-                          [mission])
+                             "WHERE mission = ? "
+                             "AND year >= '2009' "
+                             "GROUP BY year;",
+                             [mission])
         rows = list(cur.fetchall())
         for row in rows:
             counts[mission][int(row[0])] = row[1]
@@ -98,25 +98,25 @@ def plot_by_year(db,
     # Now make the actual plot
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    plt.bar(np.array(list(counts['kepler'].keys())) - 0.5*barwidth,
+    plt.bar(np.array(list(counts['kepler'].keys())),
             counts['kepler'].values(),
             label='Kepler',
             facecolor="#3498db",
             width=barwidth)
-    plt.bar(np.array(list(counts['k2'].keys())) - 0.5*barwidth,
+    plt.bar(np.array(list(counts['k2'].keys())),
             counts['k2'].values(),
             bottom=counts['kepler'].values(),
             label='K2',
             facecolor="#e74c3c",
             width=barwidth)
-    # Also plot the extrapolated precition for the current year
+    # Also plot the extrapolated prediction for the current year
     if extrapolate:
         now = datetime.datetime.now()
         fraction_of_year_passed = float(now.strftime("%-j")) / 365.2425
         current_total = (counts['kepler'][current_year] +
                          counts['k2'][current_year])
         expected = (1/fraction_of_year_passed - 1) * current_total
-        plt.bar(current_year - 0.5*barwidth,
+        plt.bar(current_year,
                 expected,
                 bottom=current_total,
                 label='Extrapolation',
