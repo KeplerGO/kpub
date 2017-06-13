@@ -408,7 +408,7 @@ class PublicationDB(object):
         idx_top = np.argsort(paper_count)[::-1][:top]
         return names[idx_top], paper_count[idx_top]
 
-    def count_by_year(self, year_begin=2009, year_end=datetime.datetime.now().year):
+    def get_annual_publication_count(self, year_begin=2009, year_end=datetime.datetime.now().year):
         """Returns a dict containing the number of publications per year per mission.
 
         Parameters
@@ -433,6 +433,29 @@ class PublicationDB(object):
             rows = list(cur.fetchall())
             for row in rows:
                 result[mission][int(row[0])] = row[1]
+        return result
+
+    def get_annual_publication_count_cumulative(self, year_begin=2009, year_end=datetime.datetime.now().year):
+        """Returns a dict containing the cumulative number of publications per year per mission.
+
+        Parameters
+        ----------
+        year_begin : int
+            Year to start counting. (default: 2009)
+
+        year_end : int
+            Year to end counting. (default: current year)
+        """
+        # Initialize a dictionary to contain the data to plot
+        result = {}
+        for mission in MISSIONS:
+            result[mission] = {}
+            for year in range(year_begin, year_end + 1):
+                cur = self.con.execute("SELECT COUNT(*) FROM pubs "
+                                       "WHERE mission = ? "
+                                       "AND year <= ?;",
+                                       [mission, str(year)])
+                result[mission][year] = cur.fetchone()[0]
         return result
 
     def update(self, month=None,
@@ -504,6 +527,7 @@ class PublicationDB(object):
                                     OR title:"K2"
                                     OR title:"8462852"
                                     OR title:"1145+017"
+                                    OR full:"K2-ESPRINT"
                                     OR full:"Kepler photometry"
                                     OR full:"K2 photometry"
                                     OR full:"Kepler lightcurve"
