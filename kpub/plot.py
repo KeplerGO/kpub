@@ -76,7 +76,7 @@ def plot_by_year(db,
 
     # Obtain the dictionary which provides the annual counts
     current_year = datetime.datetime.now().year
-    counts = db.count_by_year(year_begin=first_year, year_end=current_year)
+    counts = db.get_annual_publication_count(year_begin=first_year, year_end=current_year)
 
     # Now make the actual plot
     fig = pl.figure()
