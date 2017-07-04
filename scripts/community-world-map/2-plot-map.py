@@ -7,7 +7,7 @@ import pandas
 df = pandas.read_csv("coordinates.csv")
 
 fig = pl.figure(figsize=(16, 9))
-ax = fig.add_axes([0.05, 0.05, 0.9, 0.9])
+ax = fig.add_axes([0.02, 0.03, 0.96, 0.94])
 ax.set_facecolor('white')
 m = Basemap(projection='kav7',
             lon_0=-90, lat_0=0,
