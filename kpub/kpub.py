@@ -121,39 +121,10 @@ class PublicationDB(object):
                      "-- skipping.".format(article.bibcode))
             return
 
-        # First, highlight keywords in the title and abstract
-        colors = {'KEPLER': Highlight.BLUE,
-                  'KIC': Highlight.BLUE,
-                  'KOI': Highlight.BLUE,
-                  '8462852': Highlight.BLUE,  # KIC ID of Tabby's star
-                  'K2': Highlight.RED,
-                  'EPIC': Highlight.RED,
-                  '1145+017': Highlight.RED,  # Disintegrating WD in K2
-                  'PLANET': Highlight.YELLOW}
-        title = article.title[0]
-        try:
-            abstract = article.abstract
-        except AttributeError:
-            abstract = ""
-
-        for word in colors:
-            pattern = re.compile(word, re.IGNORECASE)
-            title = pattern.sub(colors[word] + word + Highlight.END, title)
-            if abstract is not None:
-                abstract = pattern.sub(colors[word]+word+Highlight.END, abstract)
-
         # Print paper information to stdout
         print(chr(27) + "[2J")  # Clear screen
         print(statusmsg)
-        print(title)
-        print('-'*len(title))
-        print(abstract)
-        print('')
-        print('Authors: ' + ', '.join(article.author))
-        print('Date: ' + article.pubdate)
-        print('Status: ' + str(article.property))
-        print('URL: http://adsabs.harvard.edu/abs/' + article.bibcode)
-        print('')
+        display_abstract(article._raw)
 
         # Prompt the user to classify the paper by mission and science
         print("=> Kepler [1], K2 [2], unrelated [3], or skip [any key]? ",
@@ -346,7 +317,7 @@ class PublicationDB(object):
         return metrics
 
     def get_all(self, mission=None, science=None):
-        """Returns all publications."""
+        """Returns a list of dictionaries, one entry per publication."""
         articles = self.query(mission=mission, science=science)
         return [json.loads(art[2]) for art in articles]
 
@@ -574,6 +545,54 @@ class PublicationDB(object):
                 self.add_interactively(article, statusmsg=statusmsg)
         log.info('Finished reviewing all articles for {}.'.format(month))
 
+
+##################
+# Helper functions
+##################
+
+def display_abstract(article_dict):
+    """Prints the title and abstract of an article to the terminal,
+    given a dictionary of the article metadata.
+
+    Parameters
+    ----------
+    article : `dict` containing standard ADS metadata keys
+    """
+    # Highlight keywords in the title and abstract
+    colors = {'KEPLER': Highlight.BLUE,
+              'KIC': Highlight.BLUE,
+              'KOI': Highlight.BLUE,
+              '8462852': Highlight.BLUE,  # KIC ID of Tabby's star
+              'K2': Highlight.RED,
+              'EPIC': Highlight.RED,
+              '1145+017': Highlight.RED,  # Disintegrating WD in K2
+              'PLANET': Highlight.YELLOW}
+
+    title = article_dict['title'][0]
+    try:
+        abstract = article_dict['abstract']
+    except KeyError:
+        abstract = ""
+
+    for word in colors:
+        pattern = re.compile(word, re.IGNORECASE)
+        title = pattern.sub(colors[word] + word + Highlight.END, title)
+        abstract = pattern.sub(colors[word]+word+Highlight.END, abstract)
+
+    print(title)
+    print('-'*len(title))
+    print(abstract)
+    print('')
+    print('Authors: ' + ', '.join(article_dict['author']))
+    print('Date: ' + article_dict['pubdate'])
+    print('Status: ' + str(article_dict['property']))
+    print('URL: http://adsabs.harvard.edu/abs/' + article_dict['bibcode'])
+    print('')
+
+
+#########################
+# Command-line interfaces
+#########################
 
 def kpub(args=None):
     """Lists the publications in the database in Markdown format."""
