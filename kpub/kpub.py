@@ -30,7 +30,7 @@ from . import plot, PACKAGEDIR, MISSIONS, SCIENCES
 DEFAULT_DB = os.path.expanduser("~/.kpub.db")
 
 # Which metadata fields do we want to retrieve from the ADS API?
-# (basically everything apart from 'aff' and 'body' to reduce data volume)
+# (basically everything apart from 'body' to reduce data volume)
 FIELDS = ['date', 'pub', 'id', 'volume', 'links_data', 'citation', 'doi',
           'eid', 'keyword_schema', 'citation_count', 'year', 'identifier',
           'keyword_norm', 'reference', 'abstract', 'recid',
@@ -163,7 +163,7 @@ class PublicationDB(object):
             # Print useful warnings
             if bibcode != article.bibcode:
                 log.warning("Requested {} but ADS API returned {}".format(bibcode, article.bibcode))
-            if 'NONARTICLE' in article.property:
+            if interactive and ('NONARTICLE' in article.property):
                 # Note: data products are sometimes tagged as NONARTICLE
                 log.warning("{} is not an article.".format(article.bibcode))
 
