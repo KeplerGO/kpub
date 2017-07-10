@@ -15,14 +15,15 @@ locations = []
 db = kpub.PublicationDB()
 all_publications = db.get_all(mission='k2')
 for publication in all_publications:
-    affiliations = publication['aff'][0].split(";")
+    affiliations = publication['aff']
     # Use the first three authors
-    for aff in affiliations[0:3]:
+    for aff in affiliations: #[0:3]:
         # Help the geolocator by only passing on the final components of the address
-        aff_suffix = ",".join(aff.split(",")[-2:]).strip()
+        aff_suffix = ",".join(aff.split(";")[-1].split(",")[-2:]).strip(" ;,-")
         locations.append(aff_suffix)
 unique_locations = nltk.FreqDist(locations)
 print("Found {} unique locations".format(len(unique_locations)))
+
 
 # Step 2: initialize the Google geolocator
 from geopy.geocoders import GoogleV3
