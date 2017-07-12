@@ -31,8 +31,15 @@ fig, ax = pl.subplots(figsize=(16, 9))
 ax.pie(sizes, labels=labels, autopct='%1.0f%%', startangle=145,
        counterclock=False, colors=["#2ecc71", "#27ae60"],
        pctdistance=0.8, labeldistance=1.1,
-       textprops={'fontsize': 20, 'weight': 'bold'})
+       textprops={'fontsize': 20, 'weight': 'normal'})
 ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-pl.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
+ttl = pl.title("NASA #K2Mission Papers by Science Topic", fontsize=36)
+ttl.set_position([.5, 1.05])
+ax.text(1, 0.005, 'Last update: 2017 Jul 12',
+        horizontalalignment='right',
+        verticalalignment='top',
+        transform=ax.transAxes,
+        fontsize=14)
+pl.tight_layout(rect=[0.03, 0.03, 0.97, 0.97])
 pl.savefig("k2-science-piechart.png")
 pl.close("all")
