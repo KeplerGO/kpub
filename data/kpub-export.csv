@@ -2643,6 +2643,8 @@
 2017A&A...604A..16F,k2,exoplanets
 2017A&A...604A..19O,k2,exoplanets
 2017A&A...604A..42R,kepler,astrophysics
+2017A&A...604A.102T,kepler,exoplanets
+2017A&A...604A.110A,unrelated,
 2017A&ARv..25....1H,kepler,astrophysics
 2017A&C....19...60C,unrelated,
 2017AJ....153....1K,unrelated,
@@ -2696,6 +2698,7 @@
 2017AN....338..442A,kepler,astrophysics
 2017ARep...61..122D,kepler,astrophysics
 2017ARep...61..461S,kepler,astrophysics
+2017ARep...61..693P,kepler,astrophysics
 2017ASPC..509..303B,k2,astrophysics
 2017ASPC..509..447P,unrelated,
 2017AcA....67..115P,unrelated,
@@ -2769,6 +2772,14 @@
 2017ApJ...843..103D,kepler,astrophysics
 2017ApJ...844...27Z,kepler,exoplanets
 2017ApJ...844..102H,kepler,astrophysics
+2017ApJ...844..166Z,kepler,astrophysics
+2017ApJ...845...33G,k2,astrophysics
+2017ApJ...845...72K,k2,astrophysics
+2017ApJ...845..103L,unrelated,
+2017ApJ...845..149M,kepler,astrophysics
+2017ApJ...845..167S,unrelated,
+2017ApJ...845L...7L,k2,astrophysics
+2017ApJ...845L..21B,unrelated,
 2017ApJS..229...30M,kepler,exoplanets
 2017AstBu..72...73H,k2,exoplanets
 2017AstL...43..202N,kepler,astrophysics
@@ -2888,6 +2899,7 @@
 2017PASA...34....2N,kepler,exoplanets
 2017PASA...34...17A,kepler,astrophysics
 2017PASA...34...29K,kepler,astrophysics
+2017PASA...34...32K,k2,exoplanets
 2017PASJ...69...15S,kepler,astrophysics
 2017PASJ...69...29N,k2,exoplanets
 2017PASJ...69...41M,kepler,astrophysics
@@ -2907,6 +2919,7 @@
 2017RAA....17....5W,kepler,astrophysics
 2017RAA....17...22Z,kepler,astrophysics
 2017RAA....17...44L,kepler,astrophysics
+2017RAA....17...83C,unrelated,
 2017RMxAA..53...67Y,kepler,astrophysics
 2017SoPh..292...89P,kepler,exoplanets
 2017arXiv170100493D,unrelated,
@@ -3021,4 +3034,17 @@
 2017arXiv170709395L,k2,astrophysics
 2017arXiv170709474F,k2,exoplanets
 2017arXiv170800716N,k2,astrophysics
+2017arXiv170801275L,kepler,exoplanets
+2017arXiv170801291J,kepler,exoplanets
+2017arXiv170802583M,kepler,astrophysics
+2017arXiv170802981B,kepler,exoplanets
+2017arXiv170804948D,k2,astrophysics
+2017arXiv170805366C,kepler,exoplanets
+2017arXiv170805400E,kepler,exoplanets
+2017arXiv170806069R,kepler,exoplanets
+2017arXiv170806366E,kepler,astrophysics
+2017arXiv170807128S,k2,exoplanets
+2017arXiv170807556M,kepler,astrophysics
+2017arXiv170807611B,k2,astrophysics
+2017arXiv170807822S,kepler,astrophysics
 2018NewA...58...10K,kepler,astrophysics
