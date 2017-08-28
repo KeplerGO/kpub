@@ -411,7 +411,8 @@ class PublicationDB(object):
                                    [mission])
             rows = list(cur.fetchall())
             for row in rows:
-                result[mission][int(row[0])] = row[1]
+                if int(row[0]) <= year_end:
+                    result[mission][int(row[0])] = row[1]
         return result
 
     def get_annual_publication_count_cumulative(self, year_begin=2009, year_end=datetime.datetime.now().year):
