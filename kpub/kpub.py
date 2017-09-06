@@ -776,9 +776,16 @@ def kpub_import(args=None):
     args = parser.parse_args(args)
 
     db = PublicationDB(args.f)
+    import time
     for line in ProgressBar(open(args.csvfile, 'r').readlines()):
-        col = line.split(',')  # Naive csv parsing
-        db.add_by_bibcode(col[0], mission=col[1], science=col[2].strip())
+        for attempt in range(5):
+            try:
+                col = line.split(',')  # Naive csv parsing
+                db.add_by_bibcode(col[0], mission=col[1], science=col[2].strip())
+                time.sleep(0.1)
+                break
+            except Exception as e:
+                print("Warning: attempt #{} for {}: error '{}'".format(attempt, col[0], e))
 
 
 def kpub_export(args=None):
