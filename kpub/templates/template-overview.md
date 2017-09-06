@@ -48,7 +48,7 @@ The publication count for Kepler is {{ metrics["kepler_count"] }}
 while that of K2 is {{ metrics["k2_count"] }}.
 The number of refereed papers is {{ metrics["kepler_refereed_count"]}} for Kepler and {{ metrics["k2_refereed_count"] }} for K2.
 
-![Publication rate by mission and year]({filename}/images/kpub/kpub-publication-rate.png)
+[![Publication rate by mission and year]({filename}/images/kpub/kpub-publication-rate.png)]({filename}/images/kpub/kpub-publication-rate.png)
 
 <hr/>
 
@@ -62,8 +62,9 @@ a total of {{ metrics["astrophysics_count"] }}
 pertain to other areas of astrophysics
 ({{ "%.0f"|format(metrics["astrophysics_fraction"]*100) }}%).
 
+The graph below details the breakdown of K2 papers by science topic.
 
-![Publications by subject]({filename}/images/kpub/kpub-piechart.png)
+[![Publications by subject]({filename}/images/kpub/k2-science-piechart.png)]({filename}/images/kpub/k2-science-piechart.png)
 
 <hr/>
 
