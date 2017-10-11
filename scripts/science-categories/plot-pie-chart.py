@@ -13,7 +13,7 @@ CATEGORIES['cl'] = "Open Clusters"
 df.loc[df.category == 'ro', 'category'] = 'cl'
 CATEGORIES['da'] = "Catalogs & Data Analysis"
 df.loc[df.category == 'ca', 'category'] = 'da'
-CATEGORIES['ot'] = "Extragalactic & Other Science"
+CATEGORIES['ot'] = "Supernovae & Extragalactic"
 df.loc[df.category == 'cv', 'category'] = 'ot'
 #CATEGORIES['as'] = "Asteroseismology"
 #df.loc[df.category == 'ga', 'category'] = 'as'
