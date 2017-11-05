@@ -257,6 +257,13 @@ class PublicationDB(object):
             plot.plot_by_year(self,
                               "kpub-publication-rate.{}".format(extension))
             plot.plot_by_year(self,
+                              "kpub-publication-rate-kepler.{}".format(extension),
+                              mission='kepler')
+            plot.plot_by_year(self,
+                              "kpub-publication-rate-k2.{}".format(extension),
+                              first_year=2014,
+                              mission='k2')
+            plot.plot_by_year(self,
                               "kpub-publication-rate-without-extrapolation.{}".format(extension),
                               extrapolate=False)
             plot.plot_science_piechart(self,
@@ -282,7 +289,11 @@ class PublicationDB(object):
                    "kepler_refereed_count": 0,
                    "k2_refereed_count": 0,
                    "citation_count": 0,
-                   "phd_count": 0
+                   "kepler_citation_count": 0,
+                   "k2_citation_count": 0,
+                   "phd_count": 0,
+                   "kepler_phd_count": 0,
+                   "k2_phd_count": 0
                    }
         authors, first_authors = [], []
         k2_authors, kepler_authors = [], []
@@ -294,6 +305,7 @@ class PublicationDB(object):
             metrics["{}_count".format(js["mission"])] += 1
             if "PhDT" in js["bibcode"]:
                 metrics["phd_count"] += 1
+                metrics["{}_phd_count".format(js["mission"])] += 1
             try:
                 metrics["{}_count".format(js["science"])] += 1
             except KeyError:
@@ -311,6 +323,7 @@ class PublicationDB(object):
                 metrics["{}_refereed_count".format(js["mission"])] += 1
             try:
                 metrics["citation_count"] += js["citation_count"]
+                metrics["{}_citation_count".format(js["mission"])] += js["citation_count"]
             except KeyError:
                 log.warning("{}: no citation_count".format(js["bibcode"]))
         metrics["author_count"] = np.unique(authors).size

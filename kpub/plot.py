@@ -49,8 +49,9 @@ def plot_by_year(db,
                  output_fn='kpub-publication-rate.pdf',
                  first_year=2009,
                  barwidth=0.75,
-                 dpi=100,
-                 extrapolate=True):
+                 dpi=200,
+                 extrapolate=True,
+                 mission='both'):
     """Plots a bar chart showing the number of publications per year.
 
     Parameters
@@ -81,23 +82,32 @@ def plot_by_year(db,
     # Now make the actual plot
     fig = pl.figure()
     ax = fig.add_subplot(111)
-    pl.bar(np.array(list(counts['kepler'].keys())),
-           counts['kepler'].values(),
-           label='Kepler',
-           facecolor="#3498db",
-           width=barwidth)
-    pl.bar(np.array(list(counts['k2'].keys())),
-           counts['k2'].values(),
-           bottom=counts['kepler'].values(),
-           label='K2',
-           facecolor="#e74c3c",
-           width=barwidth)
+    if mission != 'k2':
+        pl.bar(np.array(list(counts['kepler'].keys())),
+               counts['kepler'].values(),
+               label='Kepler',
+               facecolor="#3498db",
+               width=barwidth)
+    if mission != 'kepler':
+        if mission == 'k2':
+            bottom = None
+        else:
+            bottom = counts['kepler'].values()
+        pl.bar(np.array(list(counts['k2'].keys())),
+               counts['k2'].values(),
+               bottom=bottom,
+               label='K2-Based Publications',
+               facecolor="#e74c3c",
+               width=barwidth)
     # Also plot the extrapolated prediction for the current year
     if extrapolate:
         now = datetime.datetime.now()
         fraction_of_year_passed = float(now.strftime("%-j")) / 365.2425
-        current_total = (counts['kepler'][current_year] +
-                         counts['k2'][current_year])
+        if mission == 'both':
+            current_total = (counts['kepler'][current_year] +
+                             counts['k2'][current_year])
+        else:
+            current_total = counts[mission][current_year]
         expected = (1/fraction_of_year_passed - 1) * current_total
         pl.bar(current_year,
                expected,
@@ -133,7 +143,7 @@ def plot_by_year(db,
     pl.close()
 
 
-def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=100):
+def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=200):
     """Plots a piechart showing exoplanet vs astrophysics publications.
 
     Parameters
