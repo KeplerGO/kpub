@@ -10,7 +10,7 @@ import matplotlib as mpl
 from . import SCIENCES
 
 # Configure the aesthetics
-mpl.rcParams["figure.figsize"] = (8.485, 6)
+mpl.rcParams["figure.figsize"] = (10, 6)
 mpl.rcParams["interactive"] = False
 mpl.rcParams["lines.antialiased"] = True
 # Patches
@@ -51,7 +51,8 @@ def plot_by_year(db,
                  barwidth=0.75,
                  dpi=200,
                  extrapolate=True,
-                 mission='both'):
+                 mission='both',
+                 colors=["#3498db", "#27ae60", "#95a5a6"]):
     """Plots a bar chart showing the number of publications per year.
 
     Parameters
@@ -73,8 +74,13 @@ def plot_by_year(db,
 
     extrapolate : boolean
         If `True`, extrapolate the publication count in the current year.
-    """
 
+    mission : str
+        'kepler', 'k2', or 'both'
+
+    colors : list of str
+        Define the facecolor for [kepler, k2, extrapolation]
+    """
     # Obtain the dictionary which provides the annual counts
     current_year = datetime.datetime.now().year
     counts = db.get_annual_publication_count(year_begin=first_year, year_end=current_year)
@@ -86,7 +92,7 @@ def plot_by_year(db,
         pl.bar(np.array(list(counts['kepler'].keys())),
                counts['kepler'].values(),
                label='Kepler',
-               facecolor="#3498db",
+               facecolor=colors[0],
                width=barwidth)
     if mission != 'kepler':
         if mission == 'k2':
@@ -97,7 +103,7 @@ def plot_by_year(db,
                counts['k2'].values(),
                bottom=bottom,
                label='K2-Based Publications',
-               facecolor="#e74c3c",
+               facecolor=colors[1],
                width=barwidth)
     # Also plot the extrapolated prediction for the current year
     if extrapolate:
@@ -113,7 +119,7 @@ def plot_by_year(db,
                expected,
                bottom=current_total,
                label='Extrapolation',
-               facecolor='#95a5a6',
+               facecolor=colors[2],
                width=barwidth)
 
     # Aesthetics
