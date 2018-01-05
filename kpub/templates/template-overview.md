@@ -48,7 +48,7 @@ The publication count for Kepler is {{ metrics["kepler_count"] }}
 while that of K2 is {{ metrics["k2_count"] }}.
 The number of refereed papers is {{ metrics["kepler_refereed_count"]}} for Kepler and {{ metrics["k2_refereed_count"] }} for K2.
 
-[![Publication rate by mission and year](/images/kpub/kpub-publication-rate.png)](/images/kpub/kpub-publication-rate.png)
+[![Publication rate by mission and year](/images/kpub/kpub-publication-rate-without-extrapolation.png)](/images/kpub/kpub-publication-rate-without-extrapolation.png)
 
 <hr/>
 
