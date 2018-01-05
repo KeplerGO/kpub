@@ -854,7 +854,8 @@ def kpub_spreadsheet(args=None):
                     ('refereed', refereed),
                     ('citation_count', metrics['citation_count']),
                     ('first_author_norm', metrics['first_author_norm']),
-                    ('title', metrics['title'][0])])
+                    ('title', metrics['title'][0]),
+                    ('co_author_norm', metrics['author_norm'])])
         spreadsheet.append(myrow)
 
     output_fn = 'kepler-publications.xls'
