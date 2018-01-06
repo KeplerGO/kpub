@@ -33,7 +33,9 @@ Or by topic:
  * <a href="kpub-exoplanets.html">Exoplanet publications &raquo;</a>
  * <a href="kpub-astrophysics.html">Astrophysics publications &raquo;</a>
 
-If you spot an error in the database, such as a missing entry,
+You also can mine the database yourself by accessing a spreadsheet of the publications: [kepler-publications.xls](/data/kepler-publications.xls)
+
+If you spot an error, such as a missing entry,
 please get in touch or open an issue in the <a href="https://github.com/KeplerGO/kpub">GitHub repository</a> of the database.
 
 Last update: {{ now.strftime('%d %b %Y') }}.
@@ -111,9 +113,3 @@ Here we list the most-active authors, defined as those with six or more first-au
 {% for author in most_active_first_authors %}
  * {{author[0]}} ({{ "%.0f"|format(author[1]) }} publications)
 {% endfor -%}
-
-
-## Spreadsheet
-
-You can mine the Kepler/K2 publication database yourself
-using our spreadsheet of publications: [kepler-publications.xls](/data/kepler-publications.xls)
