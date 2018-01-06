@@ -111,3 +111,9 @@ Here we list the most-active authors, defined as those with six or more first-au
 {% for author in most_active_first_authors %}
  * {{author[0]}} ({{ "%.0f"|format(author[1]) }} publications)
 {% endfor -%}
+
+
+## Spreadsheet
+
+You can mine the Kepler/K2 publication database yourself
+using our spreadsheet of publications: [kepler-publications.xls](/data/kepler-publications.xls)
