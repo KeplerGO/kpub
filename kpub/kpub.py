@@ -32,14 +32,14 @@ DEFAULT_DB = os.path.expanduser("~/.kpub.db")
 # Which metadata fields do we want to retrieve from the ADS API?
 # (basically everything apart from 'body' to reduce data volume)
 FIELDS = ['date', 'pub', 'id', 'volume', 'links_data', 'citation', 'doi',
-          'eid', 'keyword_schema', 'citation_count', 'year', 'identifier',
-          'keyword_norm', 'reference', 'abstract', 'recid',
+          'eid', 'keyword_schema', 'citation_count', 'data', 'data_facet',
+          'year', 'identifier', 'keyword_norm', 'reference', 'abstract', 'recid',
           'alternate_bibcode', 'arxiv_class', 'bibcode', 'first_author_norm',
-          'pubdate', 'reader', 'doctype', 'title', 'pub_raw', 'property',
+          'pubdate', 'reader', 'doctype', 'doctype_facet_hier', 'title', 'pub_raw', 'property',
           'author', 'email', 'orcid', 'keyword', 'author_norm',
           'cite_read_boost', 'database', 'classic_factor', 'ack', 'page',
-          'first_author', 'read_count', 'indexstamp', 'issue', 'keyword_facet',
-          'aff']
+          'first_author', 'reader', 'read_count', 'indexstamp', 'issue', 'keyword_facet',
+          'aff', 'facility', 'simbid']
 
 
 class Highlight:
@@ -853,8 +853,11 @@ def kpub_spreadsheet(args=None):
                     ('science', row[5]),
                     ('refereed', refereed),
                     ('citation_count', metrics['citation_count']),
+                    ('read_count', metrics['read_count']),
                     ('first_author_norm', metrics['first_author_norm']),
                     ('title', metrics['title'][0]),
+                    ('keyword_norm', metrics['keyword_norm']),
+                    ('abstract', metrics['abstract']),
                     ('co_author_norm', metrics['author_norm'])])
         spreadsheet.append(myrow)
 
