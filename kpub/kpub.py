@@ -324,7 +324,7 @@ class PublicationDB(object):
             try:
                 metrics["citation_count"] += js["citation_count"]
                 metrics["{}_citation_count".format(js["mission"])] += js["citation_count"]
-            except KeyError:
+            except (KeyError, TypeError):
                 log.warning("{}: no citation_count".format(js["bibcode"]))
         metrics["author_count"] = np.unique(authors).size
         metrics["first_author_count"] = np.unique(first_authors).size
@@ -350,7 +350,10 @@ class PublicationDB(object):
             api_response = article[2]
             js = json.loads(api_response)
             bibcodes.append(article[3])
-            citations.append(js["citation_count"])
+            if js["citation_count"] is None:
+                citations.append(0)
+            else:
+                citations.append(js["citation_count"])
         idx_top = np.argsort(citations)[::-1][0:top]
         return [json.loads(articles[idx][2]) for idx in idx_top]
 
@@ -599,7 +602,7 @@ def display_abstract(article_dict):
     for word in colors:
         pattern = re.compile(word, re.IGNORECASE)
         title = pattern.sub(colors[word] + word + Highlight.END, title)
-        abstract = pattern.sub(colors[word]+word+Highlight.END, abstract)
+        abstract = pattern.sub(colors[word]+word+Highlight.END, str(abstract))
 
     print(title)
     print('-'*len(title))
