@@ -185,8 +185,17 @@ class PublicationDB(object):
                                  [article.id, article.bibcode]).fetchone()[0]
         return bool(count)
 
-    def query(self, mission=None, science=None):
-        """Query the database by mission and/or science.
+    def query(self, mission=None, science=None, year=None):
+        """Query the database by mission and/or science and/or year.
+
+        Parameters
+        ----------
+        mission : str
+            'kepler' or 'k2'
+        science : str
+            'exoplanets' or 'astrophysics'
+        year : int
+            2009, or 2010, or 2011, ...
 
         Returns
         -------
@@ -201,6 +210,9 @@ class PublicationDB(object):
 
         if science is not None:
             where += " AND science = '{}' ".format(science)
+
+        if year is not None:
+            where += " AND year = '{}' ".format(year)
 
         cur = self.con.execute("SELECT year, month, metrics, bibcode "
                                "FROM pubs "
@@ -269,7 +281,7 @@ class PublicationDB(object):
             plot.plot_science_piechart(self,
                                        "kpub-piechart.{}".format(extension))
 
-    def get_metrics(self):
+    def get_metrics(self, year=None):
         """Returns a dictionary of overall publication statistics.
 
         The metrics include:
@@ -298,7 +310,7 @@ class PublicationDB(object):
         authors, first_authors = [], []
         k2_authors, kepler_authors = [], []
         k2_first_authors, kepler_first_authors = [], []
-        for article in self.query():
+        for article in self.query(year=year):
             api_response = article[2]
             js = json.loads(api_response)
             metrics["publication_count"] += 1
@@ -429,6 +441,10 @@ class PublicationDB(object):
             for row in rows:
                 if int(row[0]) <= year_end:
                     result[mission][int(row[0])] = row[1]
+        # Also combine counts
+        result['both'] = {}
+        for year in range(year_begin, year_end + 1):
+            result['both'][year] = sum(result[mission][year] for mission in MISSIONS)
         return result
 
     def get_annual_publication_count_cumulative(self, year_begin=2009, year_end=datetime.datetime.now().year):
@@ -452,6 +468,10 @@ class PublicationDB(object):
                                        "AND year <= ?;",
                                        [mission, str(year)])
                 result[mission][year] = cur.fetchone()[0]
+        # Also combine counts
+        result['both'] = {}
+        for year in range(year_begin, year_end + 1):
+            result['both'][year] = sum(result[mission][year] for mission in MISSIONS)
         return result
 
     def update(self, month=None,
@@ -848,6 +868,17 @@ def kpub_spreadsheet(args=None):
             refereed = 'NOT REFEREED'
         else:
             refereed = ''
+        # Compute citations per year
+        try:
+            dateobj = datetime.datetime.strptime(row[3], '%Y-%m-00')
+        except ValueError:
+            dateobj = datetime.datetime.strptime(row[3], '%Y-00-00')
+        publication_age = datetime.datetime.now() - dateobj
+        try:
+            citations_per_year = metrics['citation_count'] / (publication_age.days / 365)
+        except TypeError:
+            citations_per_year = 0
+
         myrow = collections.OrderedDict([
                     ('bibcode', row[0]),
                     ('year', row[1]),
@@ -856,6 +887,7 @@ def kpub_spreadsheet(args=None):
                     ('science', row[5]),
                     ('refereed', refereed),
                     ('citation_count', metrics['citation_count']),
+                    ('citations_per_year', round(citations_per_year, 2)),
                     ('read_count', metrics['read_count']),
                     ('first_author_norm', metrics['first_author_norm']),
                     ('title', metrics['title'][0]),
