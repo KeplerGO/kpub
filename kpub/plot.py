@@ -90,7 +90,7 @@ def plot_by_year(db,
     ax = fig.add_subplot(111)
     if mission != 'k2':
         pl.bar(np.array(list(counts['kepler'].keys())),
-               counts['kepler'].values(),
+               list(counts['kepler'].values()),
                label='Kepler',
                facecolor=colors[0],
                width=barwidth)
@@ -98,9 +98,9 @@ def plot_by_year(db,
         if mission == 'k2':
             bottom = None
         else:
-            bottom = counts['kepler'].values()
+            bottom = list(counts['kepler'].values())
         pl.bar(np.array(list(counts['k2'].keys())),
-               counts['k2'].values(),
+               list(counts['k2'].values()),
                bottom=bottom,
                label='K2-Based Publications',
                facecolor=colors[1],
