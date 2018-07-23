@@ -18,8 +18,8 @@ m.drawcoastlines(color='#7f8c8d', linewidth=1.)
 m.fillcontinents('#ecf0f1', zorder=0)
 x, y = m(df['lon'].values, df['lat'].values)
 m.scatter(x, y, marker="x", color="red", lw=2.5, s=100, zorder=999)
-pl.title("NASA's #K2Mission Community", fontsize=30, y=1.02)
-ax.text(1, 0.01, 'Last update: 2017 Jul 10',
+pl.title("Location of K2 paper authors", fontsize=30, y=1.02)
+ax.text(1, 0.01, 'Last update: 2018 Jul 5',
         horizontalalignment='right',
         verticalalignment='top',
         transform=ax.transAxes,
