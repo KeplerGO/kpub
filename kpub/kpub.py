@@ -330,9 +330,12 @@ class PublicationDB(object):
             else:
                 kepler_authors.extend(js["author_norm"])
                 kepler_first_authors.append(js["first_author_norm"])
-            if "REFEREED" in js["property"]:
-                metrics["refereed_count"] += 1
-                metrics["{}_refereed_count".format(js["mission"])] += 1
+            try:
+                if "REFEREED" in js["property"]:
+                    metrics["refereed_count"] += 1
+                    metrics["{}_refereed_count".format(js["mission"])] += 1
+            except TypeError:  # proprety is None
+                pass
             try:
                 metrics["citation_count"] += js["citation_count"]
                 metrics["{}_citation_count".format(js["mission"])] += js["citation_count"]
@@ -862,11 +865,14 @@ def kpub_spreadsheet(args=None):
                          "FROM pubs WHERE mission != 'unrelated' ORDER BY bibcode;")
     for row in cur.fetchall():
         metrics = json.loads(row[6])
-        if 'REFEREED' in metrics['property']:
-            refereed = 'REFEREED'
-        elif 'NOT REFEREED' in metrics['property']:
-            refereed = 'NOT REFEREED'
-        else:
+        try:
+            if 'REFEREED' in metrics['property']:
+                refereed = 'REFEREED'
+            elif 'NOT REFEREED' in metrics['property']:
+                refereed = 'NOT REFEREED'
+            else:
+                refereed = ''
+        except TypeError:  # .property is None
             refereed = ''
         # Compute citations per year
         try:
