@@ -236,7 +236,11 @@ class PublicationDB(object):
                 group = group[:-3] + "-01"
             if group not in articles:
                 articles[group] = []
-            articles[group].append(json.loads(row[2]))
+            art = json.loads(row[2])
+            # The markdown template depends on "property" being iterable
+            if art["property"] is None:
+                art["property"] = []
+            articles[group].append(art)
 
         templatedir = os.path.join(PACKAGEDIR, 'templates')
         env = jinja2.Environment(loader=jinja2.FileSystemLoader(templatedir))
