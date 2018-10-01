@@ -886,7 +886,7 @@ def kpub_spreadsheet(args=None):
         publication_age = datetime.datetime.now() - dateobj
         try:
             citations_per_year = metrics['citation_count'] / (publication_age.days / 365)
-        except TypeError:
+        except (TypeError, ZeroDivisionError):
             citations_per_year = 0
 
         myrow = collections.OrderedDict([
