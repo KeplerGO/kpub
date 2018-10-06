@@ -288,6 +288,8 @@ class PublicationDB(object):
                               extrapolate=False)
             plot.plot_science_piechart(self,
                                        "kpub-piechart.{}".format(extension))
+            plot.plot_author_count(self,
+                                   "kpub-author-count.{}".format(extension))
 
     def get_metrics(self, year=None):
         """Returns a dictionary of overall publication statistics.

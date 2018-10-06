@@ -199,14 +199,11 @@ def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=200):
     pl.close()
 
 
-def plot_authors(db,
-                 output_fn='kpub-author-count.pdf',
-                 first_year=2009,
-                 barwidth=0.75,
-                 dpi=200,
-                 extrapolate=True,
-                 mission='both',
-                 colors=["#3498db", "#27ae60", "#95a5a6"]):
+def plot_author_count(db,
+                      output_fn='kpub-author-count.pdf',
+                      first_year=2009,
+                      dpi=200,
+                      colors=["#3498db", "#27ae60", "#95a5a6"]):
     """Plots a line chart showing the number of authors over time.
 
     Parameters
@@ -220,24 +217,14 @@ def plot_authors(db,
     first_year : int
         What year should the plot start?
 
-    barwidth : float
-        Aesthetics -- how wide are the bars?
-
     dpi : float
         Output resolution.
-
-    extrapolate : boolean
-        If `True`, extrapolate the publication count in the current year.
-
-    mission : str
-        'kepler', 'k2', or 'both'
 
     colors : list of str
         Define the facecolor for [kepler, k2, extrapolation]
     """
     # Obtain the dictionary which provides the annual counts
     current_year = datetime.datetime.now().year
-    counts = db.get_annual_publication_count(year_begin=first_year, year_end=current_year)
 
     # Now make the actual plot
     fig = pl.figure()
@@ -247,7 +234,7 @@ def plot_authors(db,
     paper_counts = []
     author_counts, first_author_counts = [], []
     k2_count, kepler_count = [], []
-    for year in range(first_year, current_year + 1):
+    for year in range(first_year - 1, current_year + 1):
         cumulative_years.append(year)
         metrics = db.get_metrics(cumulative_years)
         paper_counts.append(metrics['publication_count'])
@@ -256,24 +243,23 @@ def plot_authors(db,
         k2_count.append(metrics['k2_count'])
         kepler_count.append(metrics['kepler_count'])
 
-    ax.plot(cumulative_years, author_counts, label="# Unique Authors", lw=8)
-    ax.plot(cumulative_years, paper_counts, label="# Papers", lw=5)
-    ax.plot(cumulative_years, first_author_counts, label="# Unique First Authors", lw=2)
-    #ax.plot(cumulative_years, kepler_count, label="# Kepler")
-    #ax.plot(cumulative_years, k2_count, label="# K2")
-
+    ax.plot(cumulative_years, paper_counts, label="Papers", lw=9)
+    ax.plot(cumulative_years, author_counts, label="Unique authors", lw=6)
+    ax.plot(cumulative_years, first_author_counts, label="Unique first authors", lw=3)
 
     # Aesthetics
+    pl.title("Number of Kepler & K2 publications and authors")
     pl.ylabel("Cumulative count")
     ax.get_xaxis().get_major_formatter().set_useOffset(False)
     pl.xticks(range(first_year - 1, current_year + 1))
-    pl.xlim([first_year - 0.75*barwidth, current_year + 0.75*barwidth])
-    pl.legend(bbox_to_anchor=(0.05, 1., 1., 0.),
-              loc=3,
-              ncol=3,
+    pl.xlim([first_year - 0.5, current_year + 0.5])
+    pl.ylim([0, 1.05*np.max(author_counts)])
+    pl.legend(bbox_to_anchor=(0.03, 0.95, 0.95, 0.),
+              loc="upper left",
+              ncol=1,
               borderaxespad=0.,
-              handlelength=0.8,
-              frameon=False)
+              handlelength=1.5,
+              frameon=True)
     # Disable spines
     ax.spines["left"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -284,7 +270,7 @@ def plot_authors(db,
     ax.get_yaxis().tick_left()
     # Only show horizontal grid lines
     ax.grid(axis='y')
-    pl.tight_layout(rect=(0, 0, 1, 0.95), h_pad=1.5)
+    pl.tight_layout(rect=(0, 0, 1, 0.98), h_pad=1.5)
     log.info("Writing {}".format(output_fn))
     pl.savefig(output_fn, dpi=dpi)
     pl.close()
