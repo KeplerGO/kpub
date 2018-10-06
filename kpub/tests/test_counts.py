@@ -16,3 +16,6 @@ def test_annual_count():
         assert metrics['publication_count'] == annual['both'][year]
         assert metrics['kepler_count'] == annual['kepler'][year]
         assert metrics['k2_count'] == annual['k2'][year]
+    # Can we pass multiple years to get_metrics?
+    metrics = db.get_metrics(year=[2011, 2012])
+    assert metrics['publication_count'] == annual['both'][2011] + annual['both'][2012]
