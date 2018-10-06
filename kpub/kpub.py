@@ -194,8 +194,8 @@ class PublicationDB(object):
             'kepler' or 'k2'
         science : str
             'exoplanets' or 'astrophysics'
-        year : int
-            2009, or 2010, or 2011, ...
+        year : int or list of int
+            Examples: 2009, 2010, [2009, 2010], ...
 
         Returns
         -------
@@ -212,7 +212,11 @@ class PublicationDB(object):
             where += " AND science = '{}' ".format(science)
 
         if year is not None:
-            where += " AND year = '{}' ".format(year)
+            if isinstance(year, (list, tuple)):  # Multiple years?
+                str_year = ["'{}'".format(y) for y in year]
+                where += " AND year IN (" + ", ".join(str_year) + ")"
+            else:
+                where += " AND year = '{}' ".format(year)
 
         cur = self.con.execute("SELECT year, month, metrics, bibcode "
                                "FROM pubs "
