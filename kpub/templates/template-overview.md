@@ -54,6 +54,18 @@ The number of refereed papers is {{ metrics["kepler_refereed_count"]}} for Keple
 
 <hr/>
 
+## Number of authors
+
+The entries in the publication database have been authored and co-authored
+by a total of {{ metrics["author_count"] }} unique author names.
+We define the author name at "last name, first initial".
+Slight variations in the spelling may increase the number of unique names,
+while common names with the same first initial may result in undercounting.
+
+[![Number of Kepler and K2 papers and unique authors over time](/images/kpub/kpub-author-count.png)](/images/kpub/kpub-author-count.png)
+
+<hr/>
+
 ## Breakdown by subject
 
 Both Kepler and K2 data have been used for scientific applications
@@ -106,9 +118,7 @@ within the last 90 days.
 
 ## Most-active authors
 
-The entries in the publication database have been authored and co-authored
-by a total of {{ metrics["author_count"] }} unique author names.
-Here we list the most-active authors, defined as those with six or more first-author publications in our database.
+Below we list the most-active authors, defined as those with six or more first-author publications in our database.
 
 {% for author in most_active_first_authors %}
  * {{author[0]}} ({{ "%.0f"|format(author[1]) }} publications)
