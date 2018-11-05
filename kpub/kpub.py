@@ -909,7 +909,8 @@ def kpub_spreadsheet(args=None):
                     ('title', metrics['title'][0]),
                     ('keyword_norm', metrics['keyword_norm']),
                     ('abstract', metrics['abstract']),
-                    ('co_author_norm', metrics['author_norm'])])
+                    ('co_author_norm', metrics['author_norm']),
+                    ('affiliations', metrics['aff'])])
         spreadsheet.append(myrow)
 
     output_fn = 'kepler-publications.xls'
