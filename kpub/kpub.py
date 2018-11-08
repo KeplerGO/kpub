@@ -224,6 +224,11 @@ class PublicationDB(object):
                                "ORDER BY date DESC; ".format(where))
         return cur.fetchall()
 
+    def get_metadata(self, bibcode):
+        """Returns a dictionary of the raw metadata given a bibcode."""
+        cur = self.con.execute("SELECT metrics FROM pubs WHERE bibcode = ?;", [bibcode])
+        return json.loads(cur.fetchone()[0])
+
     def to_markdown(self, title="Publications",
                     group_by_month=False, save_as=None, **kwargs):
         """Returns the publication list in markdown format.
