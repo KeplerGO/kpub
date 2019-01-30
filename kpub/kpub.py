@@ -593,7 +593,7 @@ class PublicationDB(object):
 
             # Ignore all the unrefereed non-arxiv stuff
             try:
-                if "NOT REFEREED" in article.property and article.pub != "ArXiv e-prints":
+                if "NOT REFEREED" in article.property and article.pub.lower() != "arxiv e-prints":
                     ignore = True
             except (AttributeError, TypeError, ads.exceptions.APIResponseError):
                 pass  # no .pub attribute or .property not iterable
