@@ -20,7 +20,7 @@ df.loc[df.category == 'cv', 'category'] = 'ot'
 
 counts = df.category.value_counts()
 myorder = ['ed', 'ec', 'ml', 'as', 'ga', 'va', 'wd', 'cl', 'eb', 'yo', 'ac', 'ss', 'ot', 'da']
-assert(len(myorder) == len(counts.index))
+#assert(len(myorder) == len(counts.index))
 
 #labels = [CATEGORIES[lab] for lab in counts.index]
 #sizes = counts.values
@@ -35,7 +35,7 @@ ax.pie(sizes, labels=labels, autopct='%1.0f%%', startangle=145,
 ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 ttl = pl.title("NASA #K2Mission Papers by Science Topic", fontsize=36)
 ttl.set_position([.5, 1.05])
-ax.text(1, 0.005, 'Last update: 2017 Jul 12',
+ax.text(1, 0.005, 'Last update: 2019 Feb 21',
         horizontalalignment='right',
         verticalalignment='top',
         transform=ax.transAxes,
