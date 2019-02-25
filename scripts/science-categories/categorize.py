@@ -12,9 +12,9 @@ CATEGORIES = {
               'wd': 'White Dwarfs',
               'cv': 'Cataclysmic Variables',
               'eb': 'Eclipsing Binaries',
-              'ac': 'Stellar Flares & Activity',
+              'ac': 'Stellar Activity',
               'ro': 'Stellar Rotation',
-              'yo': 'Young stars',
+              'yo': 'Young Stars',
               'cl': 'Clusters',
               'ss': 'Solar System Science',
               'ca': 'Catalogs',
@@ -25,7 +25,7 @@ CATEGORIES = {
               'sn': 'Supernovae',
               'ag': 'AGN',
               'va': 'Classical Pulsators',
-              'ot': 'Others'
+              'ot': 'Other Topics'
               }
 
 
