@@ -234,7 +234,7 @@ def plot_author_count(db,
     paper_counts = []
     author_counts, first_author_counts = [], []
     k2_count, kepler_count = [], []
-    for year in range(first_year - 1, current_year + 1):
+    for year in range(first_year - 1, current_year):
         cumulative_years.append(year)
         metrics = db.get_metrics(cumulative_years)
         paper_counts.append(metrics['publication_count'])
@@ -251,8 +251,8 @@ def plot_author_count(db,
     pl.title("Number of Kepler & K2 publications and authors")
     pl.ylabel("Cumulative count")
     ax.get_xaxis().get_major_formatter().set_useOffset(False)
-    pl.xticks(range(first_year - 1, current_year + 1))
-    pl.xlim([first_year - 0.5, current_year + 0.5])
+    pl.xticks(range(first_year - 1, current_year))
+    pl.xlim([first_year - 0.5, current_year - 0.5])
     pl.ylim([0, 1.05*np.max(author_counts)])
     pl.legend(bbox_to_anchor=(0.03, 0.95, 0.95, 0.),
               loc="upper left",
