@@ -182,7 +182,7 @@ def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=200):
         t.set_path_effects([path_effects.Stroke(linewidth=2,
                                                 foreground='#333333'),
                             path_effects.Normal()])
-    pl.legend(patches,
+    pl.legend(handles=patches,
               labels=["Exoplanets", "Astrophysics"],
               fontsize=22,
               bbox_to_anchor=(0.2, 1.05, 1., 0.),
