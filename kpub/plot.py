@@ -201,7 +201,7 @@ def plot_science_piechart(db, output_fn="kpub-piechart.pdf", dpi=200):
 
 def plot_author_count(db,
                       output_fn='kpub-author-count.pdf',
-                      first_year=2009,
+                      first_year=2008,
                       dpi=200,
                       colors=["#3498db", "#27ae60", "#95a5a6"]):
     """Plots a line chart showing the number of authors over time.
@@ -243,17 +243,18 @@ def plot_author_count(db,
         k2_count.append(metrics['k2_count'])
         kepler_count.append(metrics['kepler_count'])
 
-    ax.plot(cumulative_years, paper_counts, label="Papers", lw=9)
-    ax.plot(cumulative_years, author_counts, label="Unique authors", lw=6)
-    ax.plot(cumulative_years, first_author_counts, label="Unique first authors", lw=3)
+    # +1 because the stats for all of e.g. 2018 should show at Jan 1, 2019
+    ax.plot([y+1 for y in cumulative_years], paper_counts, label="Kepler & K2 publications", lw=9)
+    #ax.plot(cumulative_years, author_counts, label="Unique authors", lw=6)
+    ax.plot([y+1 for y in cumulative_years], first_author_counts, label="Unique first authors", lw=3)
 
     # Aesthetics
-    pl.title("Number of Kepler & K2 publications and authors")
+    #pl.title("Kepler & K2's scientific output over time")
     pl.ylabel("Cumulative count")
     ax.get_xaxis().get_major_formatter().set_useOffset(False)
-    pl.xticks(range(first_year - 1, current_year))
-    pl.xlim([first_year - 0.5, current_year - 0.5])
-    pl.ylim([0, 1.05*np.max(author_counts)])
+    pl.xticks(range(first_year - 1, current_year + 1))
+    pl.xlim([first_year + 0.5, current_year + 0.5])
+    pl.ylim([0, 1.05*np.max(paper_counts)])
     pl.legend(bbox_to_anchor=(0.03, 0.95, 0.95, 0.),
               loc="upper left",
               ncol=1,
