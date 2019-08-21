@@ -3910,6 +3910,8 @@
 2019A&A...628A..64P,k2,exoplanets
 2019A&A...628A..70R,k2,exoplanets
 2019A&A...628A..76M,kepler,astrophysics
+2019A&A...628A..94A,k2,astrophysics
+2019A&A...628A.108F,kepler,exoplanets
 2019A&A...628L...2C,kepler,astrophysics
 2019AAS...23310306M,unrelated,
 2019AAS...23310505M,unrelated,
@@ -4032,6 +4034,7 @@
 2019AJ....158...86M,kepler,exoplanets
 2019AJ....158...87D,k2,exoplanets
 2019AJ....158...88A,kepler,astrophysics
+2019AJ....158...89H,unrelated,
 2019AJ....158...96J,unrelated,
 2019AN....340..302G,k2,astrophysics
 2019AN....340..308S,k2,astrophysics
@@ -4102,6 +4105,7 @@
 2019ApJ...880L...1A,kepler,exoplanets
 2019ApJ...880L...5H,k2,exoplanets
 2019ApJ...880L...7S,kepler,astrophysics
+2019ApJ...881...47L,k2,astrophysics
 2019ApJ...881L...3M,kepler,astrophysics
 2019ApJS..240...17Z,unrelated,
 2019ApJS..241...29Y,kepler,astrophysics
@@ -4239,6 +4243,12 @@
 2019MNRAS.tmp.2022M,kepler,exoplanets
 2019MNRAS.tmp.2075W,kepler,astrophysics
 2019MNRAS.tmp.2115D,unrelated,
+2019MNRAS.tmp.2139B,k2,astrophysics
+2019MNRAS.tmp.2147S,kepler,astrophysics
+2019MNRAS.tmp.2148Y,kepler,astrophysics
+2019MNRAS.tmp.2150P,kepler,exoplanets
+2019MNRAS.tmp.2155S,kepler,exoplanets
+2019MNRAS.tmp.2166S,k2,astrophysics
 2019MNRAS.tmpL.120M,kepler,exoplanets
 2019NatAs...3..416B,kepler,exoplanets
 2019NatAs...3..424M,kepler,exoplanets
@@ -4253,6 +4263,7 @@
 2019OAst...28...61P,unrelated,
 2019OEJV..197...28A,unrelated,
 2019OEJV..197...65A,unrelated,
+2019PASJ...71...81S,unrelated,
 2019PASJ..tmp...83S,unrelated,
 2019PASP..131b4506L,kepler,exoplanets
 2019PASP..131c4202L,kepler,astrophysics
@@ -4350,6 +4361,7 @@
 2019arXiv190711372C,k2,astrophysics
 2019arXiv190711666L,unrelated,
 2019arXiv190800203S,kepler,exoplanets
+2019arXiv190801191K,unrelated,
 2019arXiv190801795B,kepler,astrophysics
 2019arXiv190801914Y,kepler,astrophysics
 2019arXiv190802373W,k2,astrophysics
@@ -4360,7 +4372,19 @@
 2019arXiv190802897S,kepler,astrophysics
 2019arXiv190803232S,kepler,astrophysics
 2019arXiv190803558S,k2,astrophysics
+2019arXiv190803593T,kepler,exoplanets
 2019arXiv190803611L,kepler,exoplanets
+2019arXiv190804350F,unrelated,
+2019arXiv190805129M,kepler,astrophysics
+2019arXiv190805222S,kepler,astrophysics
+2019arXiv190805833W,kepler,exoplanets
+2019arXiv190806192P,kepler,exoplanets
+2019arXiv190806299D,k2,exoplanets
+2019arXiv190806558W,unrelated,
+2019arXiv190806773G,kepler,astrophysics
+2019arXiv190806981P,k2,astrophysics
+2019arXiv190806991R,kepler,exoplanets
+2019arXiv190807151P,kepler,exoplanets
 2019gaia.confE..13K,k2,astrophysics
 2019gaia.confE..14H,unrelated,
 2019nova.pres.5370K,unrelated,
