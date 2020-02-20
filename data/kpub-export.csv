@@ -4551,7 +4551,9 @@
 2020A&A...633A.133F,k2,exoplanets
 2020A&A...634A..12Z,kepler,exoplanets
 2020A&A...634A..29J,kepler,exoplanets
+2020A&A...634A..91B,unrelated,
 2020A&A...634L...4D,k2,exoplanets
+2020A&A...634L...9W,kepler,astrophysics
 2020AJ....159....2P,k2,exoplanets
 2020AJ....159...19Z,unrelated,
 2020AJ....159...23N,k2,exoplanets
@@ -4569,6 +4571,7 @@
 2020ApJ...889...42B,kepler,exoplanets
 2020ApJ...889...47D,unrelated,
 2020ApJ...889...66H,unrelated,
+2020ApJ...889L..34A,unrelated,
 2020ApJS..246...15S,k2,astrophysics
 2020AsBio..20...73Q,kepler,exoplanets
 2020GeoRL..4785397L,unrelated,
@@ -4599,6 +4602,8 @@
 2020MNRAS.tmp..186H,unrelated,
 2020MNRAS.tmp..230R,unrelated,
 2020MNRAS.tmp..257Y,kepler,astrophysics
+2020MNRAS.tmp..373K,kepler,astrophysics
+2020MNRAS.tmp..412H,k2,astrophysics
 2020MNRAS.tmpL...9K,k2,exoplanets
 2020NewA...7501302G,kepler,astrophysics
 2020PASP..132a4401M,k2,exoplanets
@@ -4631,3 +4636,12 @@
 2020arXiv200111515Z,k2,exoplanets
 2020arXiv200111873M,kepler,astrophysics
 2020arXiv200201086N,kepler,astrophysics
+2020arXiv200201755H,k2,exoplanets
+2020arXiv200201943C,unrelated,
+2020arXiv200202015B,unrelated,
+2020arXiv200202573H,kepler,exoplanets
+2020arXiv200202840Y,kepler,exoplanets
+2020arXiv200204512S,k2,astrophysics
+2020arXiv200205591S,unrelated,
+2020arXiv200205662K,k2,astrophysics
+2020arXiv200206197R,unrelated,
